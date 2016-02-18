@@ -1,0 +1,44 @@
+
+/*Login Modal*/
+
+@import url('http://fonts.googleapis.com/css?family=Lato');
+@import url('http://weloveiconfonts.com/api/?family=fontawesome');
+
+$fontSans: 'Lato', sans-serif;
+$grey: #333;
+$green: #9aca40;
+$blue: #5e9ecc;
+
+*   { box-sizing: border-box;
+    &:before,
+    &:after     { @extend *; }
+    }
+
+*,
+a:focus { outline: none; }
+
+html    { font-size: 62.5%; }
+body { margin: 50px; font-family: $fontSans; background: #71757a; }
+
+[class*="fontawesome-"] { display: block; width: 100px; height: 100px; margin: 0 auto 40px; font-size: 5.5rem; line-height: 95px; text-align: center; border: 2px solid lighten($blue, 20%); border-radius: 100%; color: #fff; background: lighten($blue, 25%); transition: all .2s;
+  &:before { font-family: 'FontAwesome', sans-serif; }
+}
+
+.container { width: 450px; padding: 30px; margin: 0 auto; background: lighten($grey, 75%);
+  &:hover [class*="fontawesome-"] { border-color: $blue; background: $blue; }
+}
+
+
+form {
+  fieldset { width: 100%; padding: 0 10px; margin: 0 0 10px; border: 1px solid lighten($grey, 70%); background: #fff; }
+  input { display: block; width: 100%; padding: 20px 5px; margin: 0; border: none; font: 1.4rem $fontSans; text-transform: uppercase; color: $grey;
+    &[type="text"],
+    &[type="password"] { letter-spacing: .1rem; transition: padding .2s;
+      &:focus { padding: 20px 5px 20px 20px; background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAANCAMAAABSF4SHAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF/5kA////nQtxcAAAAAJ0Uk5T/wDltzBKAAAAJ0lEQVR42mJgYAQDBgYGGM0AoxlgNAOMZoDRDKh8VPWo5kHMBwgwAAi4ACtJ73JtAAAAAElFTkSuQmCC') no-repeat 5px 50%; }
+    }
+      &[type="text"] { border-bottom: 1px solid lighten($grey, 70%); }
+    &[type="submit"] { font-size: 1.6rem; color: #fff; background: $green; transition: all .2s;
+      &:hover { cursor: pointer; background: darken($green, 20%); }
+    }
+  }
+}

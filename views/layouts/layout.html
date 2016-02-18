@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hapi Template</title> <!-- CHANGE-ME -->
+  <title>Rate My Plate</title> <!-- CHANGED -->
 
   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -20,5 +20,42 @@
   {{/if}}
 
   {{{content}}}
+
+
+  <!-- Login Modal-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="loginmodal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="loginmodal">Sign in</h4>
+      </div>
+      <div class="modal-body">
+        <div class="loginmodalcontainer">
+          <span class="fontawesome-lock"></span>
+          <form>
+            <fieldset>
+              <input type="text" placeholder="Email Address"><input type="password" placeholder="Password">
+            </fieldset>
+            <input type="submit" value="Sign In">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loginmodalcontainer">
+  <span class="fontawesome-lock"></span>
+  <form>
+    <fieldset>
+      <input type="text" placeholder="Email Address"><input type="password" placeholder="Password">
+    </fieldset>
+    <input type="submit" value="Log In">
+  </form>
+</div>
+
+
+
 </body>
 </html>
