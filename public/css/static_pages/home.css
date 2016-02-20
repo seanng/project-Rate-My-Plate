@@ -1,0 +1,51 @@
+h1 {
+    font-family: 'Raleway', sans-serif;
+    font-size:60px;
+    text-align: center;
+}
+
+#home-page {
+    text-align: center;
+}
+
+.fa-camera-retro {
+    border: 2px solid black;
+    padding: 20px;
+    border-radius: 25px;
+    margin-top: 15px;
+}
+
+.fa-map-marker {
+    border: 2px solid black;
+    padding: 5px 10px 5px 10px;
+    margin-right: 15px;
+}
+
+#enterdish {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.ratingdiv {
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/*insert star here!*/
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+}
+
+

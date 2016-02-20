@@ -75,7 +75,7 @@ exports.register = function(server, options, next) {
                     }
 
                     // Store the Session information in the browser Cookie
-                    request.yar.set('hapi_template_session', newSession); // CHANGE-ME
+                    request.yar.set('hapi_ratemyplate_session', newSession); // CHANGED
 
                     return reply({ "message:": "Authenticated" }).code(200);
                   });
@@ -98,7 +98,7 @@ exports.register = function(server, options, next) {
       path: '/api/signout',
       handler: function(request, reply) {
         var db = request.server.plugins['hapi-mongodb'].db;
-        var session = request.yar.get('hapi_template_session'); // CHANGE-ME
+        var session = request.yar.get('hapi_ratemyplate_session'); // CHANGED
 
         if (!session) {
           return reply({ "message": "Already logged out" }).code(400);
