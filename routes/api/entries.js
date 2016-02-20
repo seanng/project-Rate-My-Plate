@@ -27,6 +27,26 @@ exports.register = function(server, options, next) {
 
         });
       }
+    },
+    { // Get all entries of {userid}
+      method: 'GET',
+      path: '/userpage/{userid}',
+      handler: function (request, reply) {
+        Authenticated(request, function (result) {
+          console.log(request);
+          var db = request.server.plugins['hapi-mongodb'].db;
+          var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+
+          var userid = request.params.userid;
+          console.log(userid);
+          db.collection('entries').find({"userid": userid}).toArray(function (err, entries) {
+            if (err) { return reply(err); }
+            // reply(results).code(200);
+            console.log(entries);
+            reply.view('static_pages/userpage', {entries: entries, authenticated: result.authenticated}).code(200);
+          });
+        });
+      }
     }
   ]);
   next();

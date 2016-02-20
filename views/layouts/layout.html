@@ -44,8 +44,9 @@ NAVBAR RIGHT: User icon if authenticated, Login icon if unauthenticated  -->
             </form>
             <!-- <ul class="nav navbar-nav">
               <li> -->
+
                 <% if (authenticated) { %>
-                  <span class="fontawesome-user" data-target"/userpage"></span>
+                  <a href="/userpage/<%= user_id %>"<span class="fontawesome-user"></span></a>
                 <% } else { %>
                   <span class="fontawesome-signin" data-toggle="modal" data-target="#signin-modal"></span>
                 <% } %>

@@ -12,6 +12,8 @@ $(document).ready(function () {
     });
   };
 
+
+
   // Sign in Modal
   $('#signin-modal').on('hidden.bs.modal', function (e) {
     var inputs = $('form input');
@@ -91,9 +93,8 @@ $(document).ready(function () {
           withCredentials: true
         },
         success: function(response){
-          console.log("create session / logged in", response);
-          window.location.href = '/userpage';
-          //NEED TO ADD /{userid}
+          console.log("create session / logged in", response.userid);
+          window.location.href = '/userpage/'+ response.userid;  //NEED TO go to /userpage/{userid}
         },
         error: function(response) {
           console.log ('there is an error, mate');

@@ -51,7 +51,7 @@ exports.register = function(server, options, next) {
                   "user_id": userMongo._id
                 });
 
-                return reply({ "message:": "Authenticated" }).code(200);
+                return reply({ "message:": "Authenticated", userid: userMongo._id }).code(200);
               });
 
             } else { reply({ message: "Not authorized" }).code(400); }
@@ -65,6 +65,24 @@ exports.register = function(server, options, next) {
       handler: function(request, reply) {
         Auth.authenticated(request, function(result) {
           reply(result);
+        });
+      }
+    },
+    {
+      method: 'DELETE',
+      path: '/api/sessions',
+      handler: function(request, reply) {
+        var session = request.yar.get('hapi_ratemyplate_session');
+        var db = request.server.plugins['hapi-mongodb'].db;
+
+        if(!session) {
+          return reply({ "message": "Already logged out" });
+        }
+
+        db.collection('sessions').remove({ "session_id": session.session_id }, function(err, writeResult) {
+          if (err) { return reply('Internal MongoDB error', err); }
+
+          reply(writeResult);
         });
       }
     }
