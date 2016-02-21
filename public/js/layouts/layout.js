@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
   var bindSignout = function () {
     $('#signout-btn').on('click', function (e) {
       console.log ('signout button');
@@ -94,7 +95,7 @@ $(document).ready(function () {
         },
         success: function(response){
           console.log("create session / logged in", response.userid);
-          window.location.href = '/userpage/'+ response.userid;  //NEED TO go to /userpage/{userid}
+          window.location.href = '/';
         },
         error: function(response) {
           console.log ('there is an error, mate');
@@ -105,28 +106,6 @@ $(document).ready(function () {
   });
 
 
-  // var signinbutton = function() {
-  //   $('#signinbutton').on('click', function(e) {
-
-  //     $.ajax({ // Create a new session
-  //       type: "POST",
-  //       url: "/api/sessions",
-  //       data: user,
-  //       dataType: 'JSON',
-  //       xhrFields: {
-  //         withCredentials: true
-  //       },
-  //       success: function(response){
-  //         console.log("create session / logged in", response);
-  //         window.location.href = '/userpage';
-  //       },
-  //       error: function(response) {
-  //         console.log ('there is an error, mate');
-  //         console.log(response);
-  //       }
-  //     });
-  //   });
-  // };
 
   var searchforthings = function() {
     $('input').eq(0).on('submit', function(e) {

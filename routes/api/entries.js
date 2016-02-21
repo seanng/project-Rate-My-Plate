@@ -33,7 +33,6 @@ exports.register = function(server, options, next) {
       path: '/userpage/{userid}',
       handler: function (request, reply) {
         Authenticated(request, function (result) {
-          console.log(request);
           var db = request.server.plugins['hapi-mongodb'].db;
           var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
 
@@ -43,7 +42,7 @@ exports.register = function(server, options, next) {
             if (err) { return reply(err); }
             // reply(results).code(200);
             console.log(entries);
-            reply.view('static_pages/userpage', {entries: entries, authenticated: result.authenticated}).code(200);
+            reply.view('static_pages/userpage', {entries: entries, authenticated: result.authenticated, userid: userid}).code(200);
           });
         });
       }

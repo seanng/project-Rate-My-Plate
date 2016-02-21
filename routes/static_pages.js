@@ -18,8 +18,21 @@ exports.register = function (server, options, next) {
       path: '/',
       handler: function(request, reply) {
         Authenticated(request, function (result) {
-          var data = result; // need to have authenticated inorder to show signout button
-          reply.view('static_pages/home', data).code(200);
+          var db = request.server.plugins['hapi-mongodb'].db;
+          var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+          var data = { authenticated: result.authenticated };
+
+          if (result.authenticated) { //if authenticated,
+            var userid = result.userid.toString();
+            data = {
+              authenticated: result.authenticated,
+              userid: userid
+            };
+            return reply.view('static_pages/home', data).code(200);
+          }
+          else
+            console.log (data, 123123123);
+            reply.view('static_pages/home', data).code(200);
         });
       }
     },
