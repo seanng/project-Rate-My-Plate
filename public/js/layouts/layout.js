@@ -14,7 +14,6 @@ $(document).ready(function () {
   };
 
 
-
   // Sign in Modal
   $('#signin-modal').on('hidden.bs.modal', function (e) {
     var inputs = $('form input');

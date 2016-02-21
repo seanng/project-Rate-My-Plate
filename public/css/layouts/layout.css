@@ -3,13 +3,21 @@
 
 h1 {
     font-family: 'Raleway', sans-serif;
-    font-size:60px;
-    text-align: center;
 }
 
-html {
-  font-size: 62.5%;
+.titlediv {
+  text-align: justify;
 }
+
+.titlediv:after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+
+/*html {
+  font-size: 62.5%;
+}*/
 
 body {
   font-family: "Lato", sans-serif;
@@ -27,14 +35,18 @@ body {
   margin: 0 auto;
 /*  min-width: 500px;
   max-width: 600px;*/
-  width: 66%;
+  width: 500px;
 }
 
 
 /*NavBar Stuff*/
+.searchbox {
+  padding: 8px 15px;
+  border:2px solid #dbdbdb;
+}
 
 [role="search"]{
-  width: 80%;
+  width: 70%;
 }
 
 .navbar-form .form-group {
@@ -69,6 +81,8 @@ body {
    position: absolute;
 }
 
+
+
 /*Log in modal*/
 
 .modal-dialog {
@@ -96,5 +110,3 @@ body {
   font-weight: 100;
   font-size: 12px;
 }
-
-/*Sign up modal */

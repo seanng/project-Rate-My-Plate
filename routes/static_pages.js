@@ -31,7 +31,7 @@ exports.register = function (server, options, next) {
             return reply.view('static_pages/home', data).code(200);
           }
           else
-            console.log (data, 123123123);
+            console.log (data);
             reply.view('static_pages/home', data).code(200);
         });
       }

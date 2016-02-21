@@ -1,8 +1,8 @@
-h1 {
+/*h1 {
     font-family: 'Raleway', sans-serif;
     font-size:60px;
     text-align: center;
-}
+}*/
 
 #home-page {
     text-align: center;
@@ -21,31 +21,26 @@ h1 {
     margin-right: 15px;
 }
 
+#enterrestaurant {
+    margin: 15px auto 15px auto;
+    width: 300px;
+}
+
 #enterdish {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    width: 300px;
+    margin: 15px auto 15px auto;
 }
 
 .ratingdiv {
     position: relative;
-    margin: 0 auto;
+    margin: 15px auto 15px auto;
     text-align: center;
 }
 
-/*insert star here!*/
-.rating {
-  unicode-bidi: bidi-override;
-  direction: rtl;
-}
-.rating > span {
-  display: inline-block;
-  position: relative;
-  width: 1.1em;
-}
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
-   content: "\2605";
-   position: absolute;
-}
 
+/*Comment Box*/
 
+#commentblurb {
+  width: 300px;
+  margin: 0 auto;
+}

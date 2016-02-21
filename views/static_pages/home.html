@@ -2,12 +2,12 @@
   <h1>Rate My Plate</h1>
   <i class="fa fa-camera-retro fa-5x"></i>
   </br>
-  <form class="form-inline">
-    <div class="form-group" id="enterdish">
-      <i class="fa fa-map-marker fa-2x"></i>
-      <input class="form-control" type="text" placeholder="Please check in" style="display:inline">
+    <div class="form-group" id="enterrestaurant">
+      <input class="form-control" id="locationTextField" placeholder="Restaurant name">
     </div>
-  </form>
+    <div class="form-group" id="enterdish">
+      <input class="form-control" id="dishNameTextField" type="text" placeholder="Dish name" disabled>
+    </div>
 
 <!-- RATING - Form -->
   RATING STARS
@@ -17,10 +17,34 @@
 
 <!-- Comment blurb -->
 
-  <textarea placeholder="Leave a comment? (optional)" class="form-control" rows="3"></textarea>
+  <textarea id="commentblurb" placeholder="Leave a comment? (optional)" class="form-control" rows="3"></textarea>
 
 <!-- Submit button -->
   <button type="button" id="submitbutton" class="btn btn-success">GO</button>
+
+  <!-- Check in modal -->
+  <div class="modal fade" id="checkinmodal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="checkinmodal-title">Check in to restaurant</h4>
+        </div>
+        <div class="modal-body">
+          <!-- Search box goes here -->
+          <form>
+            <input class="searchbox" type="text" placeholder="Search..." required>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 </div>
 
