@@ -9,16 +9,19 @@ NAVBAR RIGHT: User icon if authenticated, Login icon if unauthenticated  -->
   <meta charset="UTF-8">
   <title>Rate My Plate</title> <!-- CHANGED -->
 
-  <!-- Bootstrap, jQuery and Layout JS files-->
+  <!-- Bootstrap, jQuery, Layout, and jQuery UI JS files-->
   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="/public/js/layouts/layout.js"></script>
+   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
   <!-- Google Maps API -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwgejdknqxK_7RDtdus9aVE2lzKrUeW5M&libraries=places"></script>
 
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="/public/css/layouts/layout.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
   <!-- Google Fonts -->
   <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
@@ -50,7 +53,7 @@ NAVBAR RIGHT: User icon if authenticated, Login icon if unauthenticated  -->
               <li> -->
 
                 <% if (authenticated) { %>
-                  <a href="/userpage/<%= userid %>"><span class="fontawesome-user"></span></a>
+                  <a href="/userpage/<%= userID %>"><span class="fontawesome-user"></span></a>
                 <% } else { %>
                   <span class="fontawesome-signin" data-toggle="modal" data-target="#signin-modal"></span>
                 <% } %>

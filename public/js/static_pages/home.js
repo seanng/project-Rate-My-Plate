@@ -1,34 +1,8 @@
 // jQuery of Home Page
 
 $(document).ready(function () {
-  // Get User Page
-  var submitEntry = function() {
-    $('#submitbutton').on('click', function (e){
-      e.preventDefault();
-      // Post an Entry to backend
-      var entry = {
-        // userid: _____ ,
-        // photoURL: ____ ,
-        // restaurant: _____,
-        dishname: $('.form-control').eq(1).val(),
-        // rating: _____,
-        comment: $('textarea').val()
-      };
 
-      $.ajax ({
-        type: "POST",
-        url: '/api/entries',
-        data: entry,
-        success: function (response) {
-          console.log (response);
-          window.location.href = '/userpage'; //Redirect to user page
-        },
-        error: function(response) {
-          console.log(response);
-        }
-      });
-    });
-  };
+
 
   // Modals
   // var showCheckInModal = function() {
@@ -49,9 +23,10 @@ $(document).ready(function () {
 
 
   var restaurantInfo = {
-    getId: null,
-    getLocation: null
+    getID: null
   };
+
+  var userID = $('#submitbutton').attr('alt');
 
   var restaurantAutocomplete = function() {
     var input = document.getElementById('locationTextField');
@@ -63,32 +38,70 @@ $(document).ready(function () {
       $('#dishNameTextField').removeAttr('disabled');
       var place = autocomplete.getPlace();
       restaurantInfo.getID = place.place_id;
-      restaurantInfo.getLocation = place.geometry.location;
-      console.log(restaurantInfo);
+      // restaurantInfo.getLocation = place.geometry.location;
       getRestaurantDishes();
-
     });
   };
 
-  // var restaurantDishes = [];
+  var restaurantDishes = [];
 
-  // var getRestaurantDishes = function() {
-  //   $.ajax({
-  //     type: "GET",
-  //     url: "/api/dishes",
-  //     data: restaurantInfo,
-  //     success: function (response, status) {
-  //       console.log (response);
-  //       response.forEach(function(dish) {
-  //         restaurantDishes.push(dish);
-  //       });
-  //     },
-  //     error: function (response, status){
-  //       console.log ('there was an error in getting restaurant dishes. Here is the response.');
-  //       console.log (response);
-  //     }
-  //   });
-  // };
+  var getRestaurantDishes = function() {
+    $.ajax({
+      type: 'POST',
+      url: '/api/dishesforautocomplete',
+      data: restaurantInfo,
+      error: function (response, status) {
+        console.log ('there was an error in posting restaurant dishes.');
+        console.log (response);
+      },
+      success: function (response, status) {
+        console.log ('success posting');
+        restaurantDishes = [];
+        response.forEach(function(elem) {
+          restaurantDishes.push(elem.name);
+        });
+        console.log(restaurantDishes);
+
+        $(function() {
+          $("#dishNameTextField").autocomplete({
+            source: restaurantDishes
+          });
+        });
+      }
+    });
+  };
+
+  var submitEntry = function() {
+    $('#submitbutton').on('click', function (e){
+      e.preventDefault();
+      // Post an Entry to backend
+      var entry = {
+        userID: userID.toString(),
+        // photoURL: ____ ,
+        restaurantID: restaurantInfo.getID,
+        restaurantName: $('#locationTextField').val(),
+        dishName: $('#dishNameTextField').val(),
+        // rating: _____,
+        comment: $('textarea').val()
+      };
+
+      console.log (entry);
+
+      $.ajax ({
+        type: "POST",
+        url: '/api/entries',
+        data: entry,
+        success: function (response) {
+          console.log ('great success');
+          console.log (response);
+          window.location.href = '/'; //Redirect to user page
+        },
+        error: function(response) {
+          console.log(response);
+        }
+      });
+    });
+  };
 
   var init = function(){
     // showCheckInModal();

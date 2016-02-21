@@ -37,7 +37,7 @@ exports.register = function(server, options, next) {
 
               var newSession = {
                 "session_id": randomKey,
-                "user_id": userMongo._id
+                "userID": userMongo._id
               };
 
               db.collection('sessions').insert(newSession, function(err, result) {
@@ -51,7 +51,7 @@ exports.register = function(server, options, next) {
                   "user_id": userMongo._id
                 });
 
-                return reply({ "message:": "Authenticated", userid: userMongo._id }).code(200);
+                return reply({ "message:": "Authenticated", userID: userMongo._id }).code(200);
               });
 
             } else { reply({ message: "Not authorized" }).code(400); }

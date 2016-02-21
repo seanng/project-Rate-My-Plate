@@ -23,10 +23,10 @@ exports.register = function (server, options, next) {
           var data = { authenticated: result.authenticated };
 
           if (result.authenticated) { //if authenticated,
-            var userid = result.userid.toString();
+            var userID = result.userID.toString();
             data = {
               authenticated: result.authenticated,
-              userid: userid
+              userID: userID
             };
             return reply.view('static_pages/home', data).code(200);
           }

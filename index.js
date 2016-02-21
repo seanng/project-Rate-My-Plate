@@ -15,6 +15,7 @@ var plugins = [
   { register: require('./routes/static_pages.js')}, // Route to GET HTML files
   { register: require('./routes/auth.js')},
   { register: require('./routes/api/sessions.js')},
+  { register: require('./routes/api/dishes.js')},
   { register: require('./routes/api/auth.js')},
   { register: require('./routes/api/entries.js')}, // Route for entries data
   { register: require('./routes/api/users.js')}, // Routes for user data

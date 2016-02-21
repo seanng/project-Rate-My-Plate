@@ -19,7 +19,7 @@ module.exports = function(request, callback) {
       return callback({
         "authenticated": true,
         "message": "Authorized",
-        'userid': session.user_id
+        'userID': session.user_id
       });
     }
   });

@@ -16,7 +16,10 @@ exports.register = function(server, options, next) {
           var session  = request.yar.get('hapi_ratemyplate_session');
 
           var entry = {
-            dishname: request.payload.dishname,
+            userID: request.payload.userID,
+            restaurantID: request.payload.restaurantID,
+            restaurantName: request.payload.restaurantName,
+            dishName: request.payload.dishName,
             comment: request.payload.comment
           };
 
@@ -29,19 +32,18 @@ exports.register = function(server, options, next) {
     },
     { // Get all entries of {userid}
       method: 'GET',
-      path: '/userpage/{userid}',
+      path: '/userpage/{userID}',
       handler: function (request, reply) {
         Authenticated(request, function (result) {
           var db = request.server.plugins['hapi-mongodb'].db;
           var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
 
-          var userid = request.params.userid;
-          console.log(userid);
-          db.collection('entries').find({"userid": userid}).toArray(function (err, entries) {
+          var userID = request.params.userID;
+          db.collection('entries').find({"userID": userID}).toArray(function (err, entries) {
             if (err) { return reply(err); }
             // reply(results).code(200);
             console.log(entries);
-            reply.view('static_pages/userpage', {entries: entries, authenticated: result.authenticated, userid: userid}).code(200);
+            reply.view('static_pages/userpage', {entries: entries, authenticated: result.authenticated, userID: userID}).code(200);
           });
         });
       }
