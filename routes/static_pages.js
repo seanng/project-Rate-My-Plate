@@ -47,6 +47,17 @@ exports.register = function (server, options, next) {
         });
       }
     },
+    { // Dish Page
+      method: 'GET',
+      path: '/dishpage',
+      handler: function(request, reply) {
+        Authenticated(request, function (result) {
+          var data = result;
+          reply.view('static_pages/dishpage', data).code(200);
+          console.log (data);
+        });
+      }
+    },
     { // Account registration
       method: 'GET',
       path: '/signup',

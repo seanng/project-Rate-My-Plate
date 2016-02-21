@@ -1,0 +1,16 @@
+<!-- This page will display all the entries of the dish -->
+This page will display all the entries of the dish
+
+
+<script src="/public/js/static_pages/dishpage.js"></script>
+<link rel="stylesheet" href="/public/css/static_pages/dishpage.css">
+
+<% entries.forEach(function(entries){ %>
+<div>
+  <h2><%= entries.dishname %></h2>
+  <h3><%= entries.userid %></h3>
+  <h4><%= entries.comment %></h4>
+</div>
+<% }) %>
+
+<span class="fontawesome-signout"></span>
