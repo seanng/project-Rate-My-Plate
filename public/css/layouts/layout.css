@@ -41,6 +41,10 @@ body {
   vertical-align: middle;
 }
 
+.headerspan2 {
+  text-align: right;
+}
+
 
 [class*="fontawesome-"]:before {
   font-family: 'FontAwesome', sans-serif;

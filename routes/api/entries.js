@@ -1,6 +1,6 @@
 // TO HANDLE ENTRIES COLLECTION REQUESTS
 
-var Authenticated = require("../modules/Authenticated.js");
+var Authenticated = require("../modules/authenticated.js");
 var Joi = require('joi');
 var Auth = require('./auth');
 

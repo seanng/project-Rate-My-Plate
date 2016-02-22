@@ -1,6 +1,6 @@
 // TO HANDLE STATIC PAGES REQUESTS
 
-var Authenticated = require("./modules/Authenticated.js");
+var Authenticated = require("./modules/authenticated.js");
 
 exports.register = function (server, options, next) {
   server.route([
