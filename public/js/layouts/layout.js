@@ -93,7 +93,7 @@ $(document).ready(function () {
           withCredentials: true
         },
         success: function(response){
-          console.log("create session / logged in", response.userID);
+          console.log("create session / logged in", response.user_id);
           window.location.href = '/';
         },
         error: function(response) {

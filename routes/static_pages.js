@@ -20,13 +20,13 @@ exports.register = function (server, options, next) {
         Authenticated(request, function (result) {
           var db = request.server.plugins['hapi-mongodb'].db;
           var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
-          var data = { authenticated: result.authenticated };
+          var data = { authenticated: result.authenticated, user_id: null };
 
           if (result.authenticated) { //if authenticated,
-            var userID = result.userID.toString();
+            var user_id = result.user_id.toString();
             data = {
               authenticated: result.authenticated,
-              userID: userID
+              user_id: user_id
             };
             return reply.view('static_pages/home', data).code(200);
           }

@@ -16,53 +16,92 @@ exports.register = function(server, options, next) {
           var session  = request.yar.get('hapi_ratemyplate_session');
 
           var entry = {
-            userID: request.payload.userID,
+            user_id: request.payload.user_id,
             restaurantID: request.payload.restaurantID,
             restaurantName: request.payload.restaurantName,
             dishName: request.payload.dishName,
-            comment: request.payload.comment
+            comment: request.payload.comment,
+            dishID: null
+            //dishRating: request.payload.dishRating
           };
 
-          db.collection('entries').insert(entry, function(err, doc) {
+          // Before inserting entry, check if dish already exists.
+          //var dishCount = db.collection('entries').find({'restaurantID': entry.restaurantID, 'dishName': entry.dishName}).count();
+
+          db.collection('entries').count({'restaurantID': entry.restaurantID, 'dishName': entry.dishName}, function(err, dishCount){
             if (err) { return reply(err); }
-            reply (doc.ops[0]);
+            // IF DISH DOES NOT EXIST
+            if (dishCount === 0) {
+              var newDish = {
+                dishName: request.payload.dishName,
+                restaurantName: request.payload.restaurantName,
+                restaurantID: request.payload.restaurantID
+                //dishRatings: [entry.dishRating]
+              };
+              // Create a new dish.
+              db.collection('dishes').insert(newDish, function(err, doc) {
+                if (err) { return reply(err); }
+                entry.dishID = doc.ops[0]._id; // entry.dishID will now be updated
+                console.log(entry);
+                db.collection('entries').insert(entry, function(err, createdEntry) {
+                  if (err) { return reply(err, "couldn't create new dish"); }
+                  reply (createdEntry);
+                });
+              });
+            }
+            // IF DISH EXISTS,
+            else {
+              console.log(dishCount);
+              // Retrieve dishID and append to entry.dishID
+              db.collection('dishes').findOne({'restaurantID': entry.restaurantID, 'dishName': entry.dishName}, function(err, doc){
+                console.log(doc);
+                if (err) { return reply(err); }
+                entry.dishID = doc.ops[0]._id;
+                console.log(entry);
+                db.collection('entries').insert(entry, function(err, createdEntry) {
+                  if (err) { return reply(err, "couldn't update new dish"); }
+                  // Push dishRating from entry to dishRatings array in dish document
+                  // db.collection('dishes').update({'restaurantID': entry.restaurantID, 'dishName': entry.dishName}, {$push: {dishRatings: entry.dishRating}});
+                  reply (createdEntry);
+                });
+              });
+            }
           });
         });
       }
     },
-    { // Get all entries of {userid}
+    { // Get all entries of {user_id}
       method: 'GET',
-      path: '/userpage/{userID}',
+      path: '/userpage/{user_id}',
       handler: function (request, reply) {
         Authenticated(request, function (result) {
           var db = request.server.plugins['hapi-mongodb'].db;
           var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
 
-          var userID = request.params.userID;
-          db.collection('entries').find({"userID": userID}).toArray(function (err, entries) {
+          var user_id = request.params.user_id;
+          db.collection('entries').find({"user_id": user_id}).toArray(function (err, entries) {
             if (err) { return reply(err); }
             // reply(results).code(200);
             console.log(entries);
-            reply.view('static_pages/userpage', {entries: entries, authenticated: result.authenticated, userID: userID}).code(200);
+            reply.view('static_pages/userpage', {entries: entries, authenticated: result.authenticated, user_id: user_id}).code(200);
           });
         });
       }
     },
-    { // Get all entries of {dishid}
+    { // Get all entries of {dishID}
       method: 'GET',
-      path: '/dishpage/{dishid}',
+      path: '/dishpage/{dishID}',
       handler: function (request, reply) {
         Authenticated(request, function (result) {
           var db = request.server.plugins['hapi-mongodb'].db;
           var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
 
-          var dishid = request.params.dishid;
-          console.log(dishid);
-          db.collection('entries').find({"dishid": dishid}).toArray(function (err, results) {
+          var dishID = request.params.dishID;
+          db.collection('entries').find({"dishID": dishID}).toArray(function (err, results) {
             if (err) { return reply(err); }
             // reply(results).code(200);
             console.log(results);
-            reply.view('static_pages/dishpage', {entries: results, authenticated: result.authenticated, dishid: dishid}).code(200);
+            reply.view('static_pages/dishpage', {entries: results, authenticated: result.authenticated, dishID: dishID}).code(200);
           });
         });
       }

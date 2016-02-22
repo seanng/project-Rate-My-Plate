@@ -26,7 +26,7 @@ $(document).ready(function () {
     getID: null
   };
 
-  var userID = $('#submitbutton').attr('alt');
+  var user_id = $('#submitbutton').attr('alt');
 
   var restaurantAutocomplete = function() {
     var input = document.getElementById('locationTextField');
@@ -58,7 +58,7 @@ $(document).ready(function () {
         console.log ('success posting');
         restaurantDishes = [];
         response.forEach(function(elem) {
-          restaurantDishes.push(elem.name);
+          restaurantDishes.push(elem.dishName);
         });
         console.log(restaurantDishes);
 
@@ -76,24 +76,23 @@ $(document).ready(function () {
       e.preventDefault();
       // Post an Entry to backend
       var entry = {
-        userID: userID.toString(),
+        user_id: user_id.toString(),
         // photoURL: ____ ,
         restaurantID: restaurantInfo.getID,
         restaurantName: $('#locationTextField').val(),
         dishName: $('#dishNameTextField').val(),
-        // rating: _____,
+        // dishID:
+        // dishRating: rating, <-- Not an array
         comment: $('textarea').val()
       };
-
-      console.log (entry);
 
       $.ajax ({
         type: "POST",
         url: '/api/entries',
         data: entry,
         success: function (response) {
-          console.log ('great success');
           console.log (response);
+          console.log ('great success to post entry.');
           window.location.href = '/'; //Redirect to user page
         },
         error: function(response) {

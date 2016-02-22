@@ -1,6 +1,5 @@
 var Authenticated = require("../modules/Authenticated.js");
 
-var getRestaurantID;
 
 exports.register = function (server, options, next) {
   server.route([
@@ -11,7 +10,7 @@ exports.register = function (server, options, next) {
         Authenticated(request, function (result) {
           var db = request.server.plugins['hapi-mongodb'].db;
           var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
-          getRestaurantID = request.payload.getID.toString();
+          var getRestaurantID = request.payload.getID.toString();
           console.log (getRestaurantID);
 
           db.collection('dishes').find({'restaurantID': getRestaurantID}).toArray(function (err, results) {
@@ -19,6 +18,43 @@ exports.register = function (server, options, next) {
             console.log (results, 123123);
             return reply(results).code(200);
           });
+        });
+      }
+    },
+    {
+      method: 'POST',
+      path: '/api/dishes',
+      handler: function(request, reply) {
+        Authenticated(request, function(result) {
+          var db = request.server.plugins['hapi-mongodb'].db;
+          var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+          var newDish = {
+            dishName: request.payload.dishName,
+            restaurantName: request.payload.restaurantName,
+            restaurantID: request.payload.restaurantID
+            // avgRating: request.payload.ratings <- THIS SHOULD BE AN ARRAY.
+          };
+
+          db.collection('dishes').insert(newDish, function(err, doc) {
+            if (err) { return reply(err); }
+            reply (doc.ops[0]);
+          });
+        });
+      }
+    },
+    {
+      method: 'PUT',
+      path: '/api/dishes',
+      handler: function (request, reply) {
+        Authenticated(request, function(result) {
+          var db = request.server.plugins['hapi-mongodb'].db;
+          var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+          var dishInfo = {
+            dishName: request.payload.dishName,
+            restaurantName: request.payload.restaurantName,
+            restaurantID: request.payload.restaurantID
+            // avgRating: request.payload.ratings
+          };
         });
       }
     }
