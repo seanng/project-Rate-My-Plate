@@ -15,35 +15,47 @@ exports.register = function(server, options, next) {
           var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
           var session  = request.yar.get('hapi_ratemyplate_session');
 
-          var entry = {
+          var entryInfo = {
             user_id: request.payload.user_id,
             restaurantID: request.payload.restaurantID,
             restaurantName: request.payload.restaurantName,
             dishName: request.payload.dishName,
             comment: request.payload.comment,
+            date: new Date(),
             dishID: null
-            //dishRating: request.payload.dishRating
           };
 
-          // Before inserting entry, check if dish already exists.
-          //var dishCount = db.collection('entries').find({'restaurantID': entry.restaurantID, 'dishName': entry.dishName}).count();
+          if (request.payload.dishRating) {
+            entryInfo.dishRating = request.payload.dishRating;
+          }
 
-          db.collection('entries').count({'restaurantID': entry.restaurantID, 'dishName': entry.dishName}, function(err, dishCount){
+          // Before inserting entry, check if dish already exists.
+
+          db.collection('entries').count({'restaurantID': entryInfo.restaurantID, 'dishName': entryInfo.dishName}, function(err, dishCount){
+
+            console.log ('dishcount is ' + dishCount);
+
             if (err) { return reply(err); }
-            // IF DISH DOES NOT EXIST
+            // IF NO ENTRY YET, create new dish
             if (dishCount === 0) {
               var newDish = {
                 dishName: request.payload.dishName,
                 restaurantName: request.payload.restaurantName,
-                restaurantID: request.payload.restaurantID
-                //dishRatings: [entry.dishRating]
+                restaurantID: request.payload.restaurantID,
+                dishRatings: []
               };
+
+              //If the user has rated the dish,
+              if (request.payload.dishRating) {
+                newDish.dishRatings.push(request.payload.dishRating);
+              }
+
               // Create a new dish.
               db.collection('dishes').insert(newDish, function(err, doc) {
                 if (err) { return reply(err); }
-                entry.dishID = doc.ops[0]._id; // entry.dishID will now be updated
-                console.log(entry);
-                db.collection('entries').insert(entry, function(err, createdEntry) {
+                entryInfo.dishID = doc.ops[0]._id; // entryInfo.dishID will now be updated
+
+                db.collection('entries').insert(entryInfo, function(err, createdEntry) {
                   if (err) { return reply(err, "couldn't create new dish"); }
                   reply (createdEntry);
                 });
@@ -51,17 +63,21 @@ exports.register = function(server, options, next) {
             }
             // IF DISH EXISTS,
             else {
-              console.log(dishCount);
-              // Retrieve dishID and append to entry.dishID
-              db.collection('dishes').findOne({'restaurantID': entry.restaurantID, 'dishName': entry.dishName}, function(err, doc){
+
+              // Retrieve dishID and append to entryInfo.dishID
+                console.log(entryInfo);
+              db.collection('dishes').findOne({'restaurantID': entryInfo.restaurantID, 'dishName': entryInfo.dishName}, function(err, doc){
                 console.log(doc);
                 if (err) { return reply(err); }
-                entry.dishID = doc.ops[0]._id;
-                console.log(entry);
-                db.collection('entries').insert(entry, function(err, createdEntry) {
+                entryInfo.dishID = doc._id;
+
+                db.collection('entries').insert(entryInfo, function(err, createdEntry) {
                   if (err) { return reply(err, "couldn't update new dish"); }
-                  // Push dishRating from entry to dishRatings array in dish document
-                  // db.collection('dishes').update({'restaurantID': entry.restaurantID, 'dishName': entry.dishName}, {$push: {dishRatings: entry.dishRating}});
+                  // If user rated, push dishRating from entry to dishRatings array in dish document
+                  if (request.payload.dishRating) {
+                    db.collection('dishes').update({'restaurantID': entryInfo.restaurantID, 'dishName': entryInfo.dishName}, {$push: {dishRatings: entryInfo.dishRating}});
+                  }
+
                   reply (createdEntry);
                 });
               });

@@ -31,16 +31,52 @@
     margin: 15px auto 15px auto;
 }
 
-.ratingdiv {
-    position: relative;
-    margin: 15px auto 15px auto;
-    text-align: center;
-}
-
 
 /*Comment Box*/
 
 #commentblurb {
   width: 300px;
   margin: 0 auto;
+}
+
+
+/*Rating Stars*/
+
+
+.ratingdiv {
+    width: 300px;
+    position: relative;
+    margin: 15px auto 15px auto;
+    text-align: left;
+}
+
+.ratinglabel {
+    text-align: left;
+    margin-left: 12px;
+    font-size: 20px;
+}
+
+.allstars {
+    text-align: right;
+    margin-left: 50px;
+    font-size: 30px;
+    color: gold;
+    font-weight: lighter;
+}
+
+.allstars {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+
+.allstars > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
+.allstars > span:hover:before,
+.allstars > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
 }

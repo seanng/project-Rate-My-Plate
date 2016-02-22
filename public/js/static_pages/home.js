@@ -2,8 +2,6 @@
 
 $(document).ready(function () {
 
-
-
   // Modals
   // var showCheckInModal = function() {
   //   $('#enterrestaurant').on('click', function(e) {
@@ -20,8 +18,6 @@ $(document).ready(function () {
   //   });
   // };
 
-
-
   var restaurantInfo = {
     getID: null
   };
@@ -36,6 +32,7 @@ $(document).ready(function () {
 
     google.maps.event.addListener(autocomplete, 'place_changed', function(){
       $('#dishNameTextField').removeAttr('disabled');
+      $('#dishNameTextField').attr('placeholder','Now enter dish name!')
       var place = autocomplete.getPlace();
       restaurantInfo.getID = place.place_id;
       // restaurantInfo.getLocation = place.geometry.location;
@@ -71,6 +68,56 @@ $(document).ready(function () {
     });
   };
 
+  var dishGrade = null; // will change everytime a different star is clicked.
+
+  var clickStars = function() {
+    $('#rating1').on('click', function(e){
+      e.preventDefault();
+      $(this).html('★');
+      $('#rating2').html('☆');
+      $('#rating3').html('☆');
+      $('#rating4').html('☆');
+      $('#rating5').html('☆');
+      dishGrade = 1;
+    });
+    $('#rating2').on('click', function(e){
+      e.preventDefault();
+      $('#rating1').html('★');
+      $(this).html('★');
+      $('#rating3').html('☆');
+      $('#rating4').html('☆');
+      $('#rating5').html('☆');
+      dishGrade = 2;
+    });
+    $('#rating3').on('click', function(e){
+      e.preventDefault();
+      $('#rating1').html('★');
+      $('#rating2').html('★');
+      $(this).html('★');
+      $('#rating4').html('☆');
+      $('#rating5').html('☆');
+      dishGrade = 3;
+    });
+    $('#rating4').on('click', function(e){
+      e.preventDefault();
+      $('#rating1').html('★');
+      $('#rating2').html('★');
+      $('#rating3').html('★');
+      $(this).html('★');
+      $('#rating5').html('☆');
+      dishGrade = 4;
+    });
+    $('#rating5').on('click', function(e){
+      e.preventDefault();
+      $('#rating1').html('★');
+      $('#rating2').html('★');
+      $('#rating3').html('★');
+      $('#rating4').html('★');
+      $(this).html('★');
+      dishGrade = 5;
+    });
+  };
+
   var submitEntry = function() {
     $('#submitbutton').on('click', function (e){
       e.preventDefault();
@@ -81,11 +128,13 @@ $(document).ready(function () {
         restaurantID: restaurantInfo.getID,
         restaurantName: $('#locationTextField').val(),
         dishName: $('#dishNameTextField').val(),
-        // dishID:
-        // dishRating: rating, <-- Not an array
         comment: $('textarea').val()
       };
 
+      if (dishGrade) {
+        entry.dishRating = dishGrade;
+      }
+      console.log (entry);
       $.ajax ({
         type: "POST",
         url: '/api/entries',
@@ -105,6 +154,7 @@ $(document).ready(function () {
   var init = function(){
     // showCheckInModal();
     restaurantAutocomplete();
+    clickStars();
     submitEntry();
   };
 

@@ -1,5 +1,14 @@
 $(document).ready(function () {
 
+  var searchEvent = function () {
+    $('#searchForm').on('submit', function (e) {
+      e.preventDefault();
+      var searchInput = $('#searchBar').val();
+      console.log(searchInput);
+      window.location.href = '/results?searchInput='+searchInput;
+    });
+  };
+
   var bindSignout = function () {
     $('#signout-btn').on('click', function (e) {
       console.log ('signout button');
@@ -16,6 +25,7 @@ $(document).ready(function () {
 
   // Sign in Modal
   $('#signin-modal').on('hidden.bs.modal', function (e) {
+
     var inputs = $('form input');
     var title = $('.modal-title');
     var progressBar = $('.progress-bar');
@@ -29,12 +39,14 @@ $(document).ready(function () {
         .addClass("btn-primary")
         .text("Ok")
         .removeAttr("data-dismiss");
-
+    $('#uLogin').val('');
+    $('#uPassword').val('');
   });
 
   // Upon clicking button to Sign In
   $('#modal-footer-sign-in button').click(function(e){
     e.preventDefault();
+
     console.log ('clicked');
     var button = $(this);
 
@@ -42,6 +54,9 @@ $(document).ready(function () {
       username: $('#uLogin').val(),
       password: $('#uPassword').val()
     };
+
+    $('#uLogin').val('');
+    $('#uPassword').val('');
 
     console.log(user);
 
@@ -104,19 +119,9 @@ $(document).ready(function () {
     }
   });
 
-
-
-  var searchforthings = function() {
-    $('input').eq(0).on('submit', function(e) {
-      console.log ('this works');
-
-
-    });
-  };
-
   var init = function () {
     bindSignout();
-    searchforthings();
+    searchEvent();
   };
 
   init();

@@ -72,9 +72,16 @@ exports.register = function (server, options, next) {
       method: 'GET',
       path: '/results',
       handler: function(request, reply) {
+        var searchInput = request.query.searchInput || "(.*)";
+        var dishSearch = new RegExp(searchInput);
         Authenticated(request, function (result) {
-          var data = result;
-          reply.view('static_pages/results', data).code(200);
+          var db = request.server.plugins['hapi-mongodb'].db;
+          var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+          db.collection('dishes').find({'dishName': dishSearch}).toArray(function (error, doc) {
+            console.log (doc);
+            if (error) { return reply(error).code(400); }
+            return reply.view('static_pages/results', {authenticated: result.authenticated, user_id: result.user_id, searchresults: doc[0]}).code(200);
+          });
         });
       }
     }
@@ -88,3 +95,5 @@ exports.register.attributes = {
   name: 'static-pages-views',
   version: '0.0.1'
 };
+
+

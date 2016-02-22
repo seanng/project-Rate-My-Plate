@@ -24,6 +24,22 @@ body {
   background: #71757a;
 }
 
+.headerdiv {
+  background: lightblue;
+  width:100%;
+  font-size: 18px;
+  height: 35px;
+  vertical-align: middle;
+  display: inline-block;
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+.headerspan {
+  position: absolute;
+  display: inline-block;
+  vertical-align: middle;
+}
 
 
 [class*="fontawesome-"]:before {
@@ -64,24 +80,6 @@ body {
   font-size: 36px;
   margin-left: 10px;
 }
-
-/*Rating Stars*/
-.rating {
-  unicode-bidi: bidi-override;
-  direction: rtl;
-}
-.rating > span {
-  display: inline-block;
-  position: relative;
-  width: 1.1em;
-}
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
-   content: "\2605";
-   position: absolute;
-}
-
-
 
 /*Log in modal*/
 
