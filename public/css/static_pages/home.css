@@ -1,11 +1,10 @@
-/*h1 {
-    font-family: 'Raleway', sans-serif;
-    font-size:60px;
-    text-align: center;
-}*/
 
 #home-page {
     text-align: center;
+    border-radius: 6px;
+    background: white;
+    padding-top: 10px;
+    padding-bottom: 15px;
 }
 
 .fa-camera-retro {
@@ -22,8 +21,9 @@
 }
 
 #enterrestaurant {
-    margin: 15px auto 15px auto;
+    margin: 30px auto 30px auto;
     width: 300px;
+    font-size: 16px;
 }
 
 #enterdish {

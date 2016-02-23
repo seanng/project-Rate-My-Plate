@@ -1,9 +1,9 @@
 $(document).ready(function () {
 
   var searchEvent = function () {
-    $('#searchForm').on('submit', function (e) {
+    $('.searchForm').on('submit', function (e) {
       e.preventDefault();
-      var searchInput = $('#searchBar').val();
+      var searchInput = $('.searchBar').val();
       console.log(searchInput);
       window.location.href = '/results?searchInput='+searchInput;
     });

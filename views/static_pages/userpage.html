@@ -6,7 +6,7 @@
 <div class="entrydiv">
   <div class='headerdiv'>
     <span class='headerspan'><%= entries.dishName %></span>
-    <span class='headerspan2'><%= entries.date %><span>
+    <span class='headerspan2'><%= entries.readableDate %><span>
   </div>
   <div class='photodiv'>
     PHOTO HERE
@@ -29,7 +29,9 @@
     </span>
   </div>
   <div class="commentdiv">
-    <%= entries.comment %>
+    <div class="commentbox">
+      <%= entries.comment %>
+    </div>
   </div>
 </div>
 <% }) %>
@@ -37,4 +39,4 @@
 
 
 <script src="/public/js/static_pages/userpage.js"></script>
-<link rel="stylesheet" href="/public/css/static_pages/userpage.css">
+<link rel="stylesheet" href="/public/css/static_pages/entries_pages.css">

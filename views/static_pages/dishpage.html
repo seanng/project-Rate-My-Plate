@@ -1,15 +1,15 @@
 <!-- This page will display all the entries of the dish -->
-This page will display all the entries of the dish
+<link rel="stylesheet" href="/public/css/static_pages/entries_pages.css">
 
-
-
-<link rel="stylesheet" href="/public/css/static_pages/dishpage.css">
+<div class="dishpageheader">
+  <%= dishName %> <%= avgrating %>
+</div>
 
 <% entries.forEach(function(entries){ %>
 <div>
-  <h2><%= entries.dishName %></h2>
-  <h3><%= entries.user_id %></h3>
-  <h4><%= entries.comment %></h4>
+  <%= entries.readableDate %>
+  <%= username %>
+  <%= entries.comment %>
 </div>
 <% }) %>
 

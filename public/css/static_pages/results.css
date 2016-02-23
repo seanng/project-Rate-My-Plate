@@ -1,0 +1,62 @@
+.searchcomment {
+  padding-left: 10px;
+  padding-top: 10px;
+  text-align: left;
+  font-size: 16px;
+  background: white;
+  height: 40px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  vertical-align: middle;
+}
+
+table {
+  width: 100%;
+  text-align: left;
+}
+
+.resultspage {
+  margin: 10px auto;
+  padding: 15px 30px;
+}
+
+td {
+  padding: 10px;
+}
+
+th {
+  background: white;
+  padding: 10px;
+}
+
+th.tc1 {
+  border-top-left-radius: 5px;
+}
+
+.tc2 {
+  text-align: center;
+}
+
+th.tc3 {
+  border-top-right-radius: 5px;
+}
+
+.resultrow {
+  /*alternate color*/
+  border-top: black 1px solid;
+  background: white;
+  border-radius: 6
+}
+
+.dishname {
+  font-size: 18px;
+}
+
+.restaurantname {
+  font-size: 12px;
+  font-style: italic;
+}
+
+.tc3 {
+  text-align: center;
+}

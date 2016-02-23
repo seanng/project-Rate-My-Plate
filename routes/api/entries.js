@@ -15,13 +15,18 @@ exports.register = function(server, options, next) {
           var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
           var session  = request.yar.get('hapi_ratemyplate_session');
 
+          var setDate = new Date();
+          var readableDate = setDate.toLocaleDateString();
+          var restName = request.payload.restaurantName.replace(/, Hong Kong$/,'');
+
           var entryInfo = {
             user_id: request.payload.user_id,
             restaurantID: request.payload.restaurantID,
-            restaurantName: request.payload.restaurantName,
+            restaurantName: restName,
             dishName: request.payload.dishName,
             comment: request.payload.comment,
-            date: new Date(),
+            date: setDate,
+            readableDate: readableDate,
             dishID: null
           };
 
@@ -40,7 +45,7 @@ exports.register = function(server, options, next) {
             if (dishCount === 0) {
               var newDish = {
                 dishName: request.payload.dishName,
-                restaurantName: request.payload.restaurantName,
+                restaurantName: restName,
                 restaurantID: request.payload.restaurantID,
                 dishRatings: []
               };
@@ -95,9 +100,9 @@ exports.register = function(server, options, next) {
           var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
 
           var user_id = request.params.user_id;
-          db.collection('entries').find({"user_id": user_id}).toArray(function (err, entries) {
+          db.collection('entries').find({"user_id": user_id}).sort({'date':-1}).toArray(function (err, entries) {
             if (err) { return reply(err); }
-            // reply(results).code(200);
+
             db.collection('users').findOne({'_id': ObjectID(user_id)}, function (err, userInfo) {
               if (err) {return reply(err); }
               reply.view('static_pages/userpage', {entries: entries, authenticated: result.authenticated, user_id: user_id, username: userInfo.username}).code(200);
@@ -113,13 +118,29 @@ exports.register = function(server, options, next) {
         Authenticated(request, function (result) {
           var db = request.server.plugins['hapi-mongodb'].db;
           var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
-
+          var user_id = result.user_id;
           var dishID = request.params.dishID;
-          db.collection('entries').find({"dishID": dishID}).toArray(function (err, results) {
+
+          db.collection('entries').find({"dishID": ObjectID(dishID)}).sort({'date':-1}).toArray(function (err, results) {
             if (err) { return reply(err); }
-            // reply(results).code(200);
-            console.log(results);
-            reply.view('static_pages/dishpage', {entries: results, authenticated: result.authenticated, dishID: dishID}).code(200);
+
+            // Get dish rating and dish location. ->>
+            db.collection('dishes').findOne({'_id': ObjectID(dishID)}, function(err, dish) {
+              var total=0;
+              var ratingsArray = dish.dishRatings;
+              for (var i = 0; i < ratingsArray.length; i++) {
+                total+= parseInt(ratingsArray[i], 10);
+              }
+              var avgrating = total / ratingsArray.length;
+
+            // Find dish location too.
+
+            // Get username info.
+              db.collection('users').findOne({'_id': ObjectID(user_id)}, function (err, user) {
+
+                reply.view('static_pages/dishpage', {entries: results, authenticated: result.authenticated, user_id: user_id, username: user.username, dishName: dish.dishName, avgrating: avgrating}).code(200);
+              });
+            });
           });
         });
       }
