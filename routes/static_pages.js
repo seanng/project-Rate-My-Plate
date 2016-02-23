@@ -36,17 +36,6 @@ exports.register = function (server, options, next) {
         });
       }
     },
-    { // User Page
-      method: 'GET',
-      path: '/userpage',
-      handler: function(request, reply) {
-        Authenticated(request, function (result) {
-          var data = result;
-          reply.view('static_pages/userpage', data).code(200);
-          console.log (data);
-        });
-      }
-    },
     { // Dish Page
       method: 'GET',
       path: '/dishpage',

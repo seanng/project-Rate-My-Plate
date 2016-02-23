@@ -2,6 +2,7 @@
   font-size: 26px;
   width: 80%;
   margin: 0 auto;
+  text-align: left;
 }
 
 .stars {
@@ -10,12 +11,12 @@
 
 .photodiv {
   margin: 0 auto;
-  margin-top: 15px;
   width: 80%;
-  height: 377px;
+  height: 350px;
   border: 2px black solid;
   text-align: center;
   vertical-align: middle;
+  border-radius: 5px;
 }
 
 .photodetails {
@@ -23,8 +24,17 @@
   margin: 10px auto;
   width: 80%;
   font-size: 16px;
+  text-align: left;
 }
 
 .restaurantname {
   float: right;
+}
+
+.commentdiv {
+  padding: 15px 10px 15px 10px;
+  border: 1px black solid;
+  width: 80%;
+  text-align: left;
+  margin: 0 auto;
 }
