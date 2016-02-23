@@ -1,17 +1,41 @@
 <!-- This page will display all the entries of the dish -->
 <link rel="stylesheet" href="/public/css/static_pages/entries_pages.css">
 
-<div class="dishpageheader">
-  <%= dishName %> <%= avgrating %>
+<div class="mainheader">
+    <%= dish.dishName %> &nbsp&nbsp&nbsp<i style="font-size: 16px; text-align: right">@<%= dish.restaurantName %></i></style>
 </div>
+    <!-- <%= avgrating %> -->
 
 <% entries.forEach(function(entries){ %>
-<div>
-  <%= entries.readableDate %>
-  <%= username %>
-  <%= entries.comment %>
+<div class="entrydiv">
+  <div class='headerdiv'>
+    <span class='headerspan2'><%= entries.readableDate %></span>
+  </div>
+  <div class="photodiv">
+    PHOTO HERE
+  </div>
+    <div class="photodetails">
+    <% if (entries.dishRating===1) { %>
+      <span class="stars">★☆☆☆☆</span>
+    <% } else if (entries.dishRating==2){ %>
+      <span class="stars">★★☆☆☆</span>
+    <% } else if (entries.dishRating==3){ %>
+      <span class="stars">★★★☆☆</span>
+    <% } else if (entries.dishRating==4){ %>
+      <span class="stars">★★★★☆</span>
+    <% } else if (entries.dishRating==5){ %>
+      <span class="stars">★★★★★</span>
+    <% } %>
+    <span class="entrydate">
+      - <%= username %>
+    </span>
+  </div>
+  <div class="commentdiv">
+    <div class="commentbox">
+      <%= entries.comment %>
+    </div>
+  </div>
 </div>
 <% }) %>
 
-<span class="fontawesome-signout"></span>
 <script src="/public/js/static_pages/dishpage.js"></script>

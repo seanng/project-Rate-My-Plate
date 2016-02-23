@@ -5,8 +5,13 @@
 
 <div class="resultspage">
   <div class="searchcomment">
-    Are you craving <%= searchInput %>?    We've found some near you:
+    You searched for "<%= searchInput %>":
   </div>
+  <% if (dish.length === 0) { %>
+  <div class="noresults">
+    Unfortunately, we couldn't find any dish containing "<%= searchInput %>".
+  </div>
+  <% } else { %>
   <div class="resultsdiv">
     <table id='resultstable'>
       <tr class='headerrow'>
@@ -30,12 +35,16 @@
           </a>
           <div class="restaurantname">&nbsp&nbsp&nbsp&nbsp---&nbsp@&nbsp&nbsp<%=dish.restaurantName%></div>
         </td>
-        <td class="tc2"><%= avgrating.toFixed(2) %></td>
+        <td class="tc2">
+          <%= avgrating.toFixed(2) %>
+          </br><h6>(<%= ratingsArray.length %> vote<%if(ratingsArray.length>1) {%>s<%}%>)</h6>
+        </td>
         <td class="tc3">Distance</td>
       </tr>
       <% }) %>
     </table>
   </div>
+  <% } %>
 </div>
 
 

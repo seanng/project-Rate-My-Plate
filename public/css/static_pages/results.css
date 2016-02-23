@@ -5,9 +5,10 @@
   font-size: 16px;
   background: white;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 3px;
   margin-bottom: 10px;
   vertical-align: middle;
+  border: #EDEDED 1px solid;
 }
 
 table {
@@ -41,9 +42,14 @@ th.tc3 {
   border-top-right-radius: 5px;
 }
 
+.noresults {
+  background: white;
+  padding: 8px;
+}
+
 .resultrow {
   /*alternate color*/
-  border-top: black 1px solid;
+  border-top: #EDEDED 1px solid;
   background: white;
   border-radius: 6
 }

@@ -1,12 +1,12 @@
 <!-- This page will display all the entries from the user -->
 <div class="mainheader">
-  <%= username %>'s Profile
+  <%= username %>'s entries
 </div>
 <% entries.forEach(function(entries){ %>
 <div class="entrydiv">
   <div class='headerdiv'>
-    <span class='headerspan'><%= entries.dishName %></span>
-    <span class='headerspan2'><%= entries.readableDate %><span>
+    <span class='headerspan1'><%= entries.dishName %></span>
+    <span class='headerspan2'>@ <%= entries.restaurantName %><span>
   </div>
   <div class='photodiv'>
     PHOTO HERE
@@ -24,8 +24,8 @@
     <% } else if (entries.dishRating==5){ %>
       <span class="stars">★★★★★</span>
     <% } %>
-    <span class="restaurantname">
-      @ <%= entries.restaurantName %>
+    <span class="entrydate">
+      <%= entries.readableDate %>
     </span>
   </div>
   <div class="commentdiv">

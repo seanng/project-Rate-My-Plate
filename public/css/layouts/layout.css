@@ -30,8 +30,15 @@ h5 {
 
 body {
   font-family: "Lato", sans-serif;
-  background-image:  url('/public/images/wood.png');
+  background-image:  url('/public/images/fabric.png');
+  /*background: #FFFAFA;*/
   object-fit: cover;
+}
+
+h6 {
+  font-size: 10px;
+  margin-top: 5px;
+  margin-bottom: 0px;
 }
 
 #contentdiv {

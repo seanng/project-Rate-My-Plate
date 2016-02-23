@@ -1,29 +1,31 @@
 
 .mainheader {
-  font-size: 26px;
+  font-size: 22px;
   width: 100%;
   margin: 0 auto;
   text-align: center;
+  border-radius: 5px;
+  background: white;
+  border: #EDEDED solid 1px;
+  padding: 10px;
 }
 
 
 .headerdiv {
-  font-size: 18px;
+  font-size: 16px;
   width: 100%;
   display: inline-block;
-  padding:15px;
+  padding:8px 15px;
   border-radius: 5px;
   margin: 0 auto;
   text-align: left;
   vertical-align: middle;
+  background: white;
 }
-
 
 .headerspan2 {
   float:right;
-  font-style: italic;
   font-size: 14px;
-
 }
 
 .stars {
@@ -33,7 +35,7 @@
 .entrydiv {
   background: white;
   border-radius: 6px;
-  border: 1px black solid;
+  border: 1px #EDEDED solid;
   padding-top: 5px;
   padding-bottom:5px;
   margin: 15px auto;
@@ -42,8 +44,8 @@
 .photodiv {
   margin: 0 auto;
   height: 350px;
-  border-top: 1px black solid;
-  border-bottom: 1px black solid;
+  border-top: 2px #EDEDED solid;
+  border-bottom: 2px #EDEDED solid;
   text-align: center;
   vertical-align: middle;
 }
@@ -53,18 +55,21 @@
   margin: 10px auto;
   width: 100%;
   font-size: 16px;
-  padding: 15px;
+  padding: 5px 15px;
   text-align: left;
 }
 
-.restaurantname {
-  float: right;
-  font-style: italic;
+.entrydate {
+  margin-left: 20px;
   font-size: 14px;
+  float: right;
+  height: 100%;
+  vertical-align: middle;
 }
 
 .commentdiv {
   padding: 15px;
+  padding-top: 2px;
   text-align: left;
   margin: 0 auto;
 }
@@ -72,13 +77,20 @@
 .commentbox {
   padding: 5px;
   border-radius: 5px;
-  border: 1px black solid;
+  border: 2px #EDEDED solid;
 }
 
 /*specifically for dishpage*/
 
 .dishpageheader {
   font-size: 16px;
-  border-bottom: 1px black solid;
+  border-bottom: 2px #EDEDED solid;
   text-align: left;
+  background: white;
+  padding: ;
+}
+
+.averagerating {
+  float: right;
+  font-size: 16px;
 }

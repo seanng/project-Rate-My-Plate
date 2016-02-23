@@ -137,8 +137,7 @@ exports.register = function(server, options, next) {
 
             // Get username info.
               db.collection('users').findOne({'_id': ObjectID(user_id)}, function (err, user) {
-
-                reply.view('static_pages/dishpage', {entries: results, authenticated: result.authenticated, user_id: user_id, username: user.username, dishName: dish.dishName, avgrating: avgrating}).code(200);
+                reply.view('static_pages/dishpage', {entries: results, authenticated: result.authenticated, user_id: user_id, username: user.username, dish: dish, avgrating: avgrating}).code(200);
               });
             });
           });

@@ -4,7 +4,8 @@
     border-radius: 6px;
     background: white;
     padding-top: 10px;
-    padding-bottom: 15px;
+    padding-bottom: 30px;
+    border: #EDEDED solid 1px;
 }
 
 .fa-camera-retro {
@@ -46,11 +47,13 @@
     position: relative;
     margin: 15px auto 15px auto;
     text-align: left;
+    vertical-align: middle;
 }
 
-.ratinglabel {
+span.ratinglabel {
     text-align: left;
     margin-left: 12px;
+    margin-bottom:12px;
     font-size: 20px;
 }
 
