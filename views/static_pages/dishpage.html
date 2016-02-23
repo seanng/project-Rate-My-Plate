@@ -27,15 +27,21 @@
       <span class="stars">★★★★★</span>
     <% } %>
     <span class="entrydate">
-      - <%= username %>
+      - <a href="/userpage/<%=entries.user_id %>"><%= username %></a>
     </span>
   </div>
+  <% if (entries.comment){ %>
   <div class="commentdiv">
     <div class="commentbox">
       <%= entries.comment %>
     </div>
+    <button type="button" class="btn btn-danger btn-xs editbtn">
+      Delete
+    </button>
   </div>
+  <% } %>
 </div>
 <% }) %>
+
 
 <script src="/public/js/static_pages/dishpage.js"></script>

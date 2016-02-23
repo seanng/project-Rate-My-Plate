@@ -99,13 +99,15 @@ exports.register = function(server, options, next) {
           var db = request.server.plugins['hapi-mongodb'].db;
           var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
 
-          var user_id = request.params.user_id;
+          var currentid = result.user_id.toString();
+          var user_id = request.params.user_id.toString();
           db.collection('entries').find({"user_id": user_id}).sort({'date':-1}).toArray(function (err, entries) {
             if (err) { return reply(err); }
 
             db.collection('users').findOne({'_id': ObjectID(user_id)}, function (err, userInfo) {
               if (err) {return reply(err); }
-              reply.view('static_pages/userpage', {entries: entries, authenticated: result.authenticated, user_id: user_id, username: userInfo.username}).code(200);
+              console.log(entries);
+              reply.view('static_pages/userpage', {entries: entries, authenticated: result.authenticated, user_id: user_id, currentid: currentid, username: userInfo.username}).code(200);
             });
           });
         });
@@ -134,12 +136,31 @@ exports.register = function(server, options, next) {
               var avgrating = total / ratingsArray.length;
 
             // Find dish location too.
-
+            console.log(dish)
             // Get username info.
               db.collection('users').findOne({'_id': ObjectID(user_id)}, function (err, user) {
                 reply.view('static_pages/dishpage', {entries: results, authenticated: result.authenticated, user_id: user_id, username: user.username, dish: dish, avgrating: avgrating}).code(200);
               });
             });
+          });
+        });
+      }
+    },
+    {
+      method: 'PUT',
+      path: '/api/entries',
+      handler: function (request, reply) {
+        Authenticated(request, function (result) {
+          var db = request.server.plugins['hapi-mongodb'].db;
+          var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+
+          var entryid = ObjectID(request.payload.entryid);
+          var newComment = request.payload.newComment;
+
+          db.collection('entries').findOneAndUpdate({'_id': entryid}, {$set:{'comment': newComment}}, function (err, entry) {
+            if (err) { return reply (err).code(400);}
+
+            reply(entry).code(200);
           });
         });
       }

@@ -10,7 +10,6 @@
   padding: 10px;
 }
 
-
 .headerdiv {
   font-size: 16px;
   width: 100%;
@@ -21,6 +20,10 @@
   text-align: left;
   vertical-align: middle;
   background: white;
+}
+
+.editbtn {
+  float: right;
 }
 
 .headerspan2 {
@@ -75,9 +78,10 @@
 }
 
 .commentbox {
-  padding: 5px;
+  padding: 5px 10px;
   border-radius: 5px;
   border: 2px #EDEDED solid;
+  word-wrap: break-word;
 }
 
 /*specifically for dishpage*/
@@ -87,7 +91,11 @@
   border-bottom: 2px #EDEDED solid;
   text-align: left;
   background: white;
-  padding: ;
+}
+
+.txtBox {
+  width: 428px;
+  word-wrap: break-word;
 }
 
 .averagerating {
