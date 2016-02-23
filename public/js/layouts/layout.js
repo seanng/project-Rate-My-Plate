@@ -9,13 +9,14 @@ $(document).ready(function () {
     });
   };
 
-  var bindSignout = function () {
-    $('#signout-btn').on('click', function (e) {
-      console.log ('signout button');
+  var bindSignout = function() {
+    $('.fontawesome-signout').on('click', function (e) {
+      console.log('listening');
       $.ajax({
-        type: "DELETE",
-        url: "/api/signout",
+        type: 'DELETE',
+        url: '/api/sessions',
         success: function (response) {
+          console.log (response);
           window.location.href = '/';
         }
       });
@@ -46,7 +47,7 @@ $(document).ready(function () {
   // Upon clicking button to Sign In
   $('#modal-footer-sign-in button').click(function(e){
     e.preventDefault();
-
+    $('#SignIn').html('Please sign in');
     console.log ('clicked');
     var button = $(this);
 
@@ -60,19 +61,13 @@ $(document).ready(function () {
 
     console.log(user);
 
-    // Check if the fields match up.
-
-
-    // If not authenticated, YOUR CODE HERE
-
-
-
     // If successfully authenticated,
     if ( button.attr("data-dismiss") != "modal" ){
       var inputs      = $('.loginmodalforms');
       var title       = $('.modal-title');
       var progress    = $('.progress');
       var progressBar = $('.progress-bar');
+      var SignIn      = $('#SignIn');
 
       var showButton  = function(){
         progress.hide();
@@ -82,7 +77,6 @@ $(document).ready(function () {
 
 
       // Render progressbar animation
-      inputs.attr("disabled", "disabled");
       button.hide();
       progress.show();
       progressBar.animate({width : "100%"}, 100);
@@ -113,7 +107,8 @@ $(document).ready(function () {
         },
         error: function(response) {
           console.log ('there is an error, mate');
-          console.log(response);
+          progress.hide();
+          SignIn.html(response.responseText);
         }
       });
     }

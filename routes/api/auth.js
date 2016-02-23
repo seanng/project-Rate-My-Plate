@@ -57,7 +57,7 @@ exports.register = function(server, options, next) {
               if (err) { return reply('Internal MongoDB error', err).code(400); }
 
               if (userMongo === null) {
-                return reply({ "message": "User doesn't exist" }).code(400);
+                return reply({message: 'User does not exist.' }).code(400);
               }
 
               Bcrypt.compare(user.password, userMongo.password, function(err, result) {
@@ -80,7 +80,7 @@ exports.register = function(server, options, next) {
                     return reply({ "message:": "Authenticated" }).code(200);
                   });
                 } else {
-                  reply({ message: "Not authorized" }).code(400);
+                  reply({ message: "Please try again." }).code(400);
                 }
               });
           });

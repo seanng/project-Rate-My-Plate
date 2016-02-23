@@ -98,8 +98,10 @@ exports.register = function(server, options, next) {
           db.collection('entries').find({"user_id": user_id}).toArray(function (err, entries) {
             if (err) { return reply(err); }
             // reply(results).code(200);
-            console.log(entries);
-            reply.view('static_pages/userpage', {entries: entries, authenticated: result.authenticated, user_id: user_id}).code(200);
+            db.collection('users').findOne({'_id': ObjectID(user_id)}, function (err, userInfo) {
+              if (err) {return reply(err); }
+              reply.view('static_pages/userpage', {entries: entries, authenticated: result.authenticated, user_id: user_id, username: userInfo.username}).code(200);
+            });
           });
         });
       }

@@ -21,27 +21,24 @@ h1 {
 
 body {
   font-family: "Lato", sans-serif;
-  background: #71757a;
+  background: #dbe2e9;
 }
 
 .headerdiv {
   background: lightblue;
-  width:100%;
+  width:80%;
   font-size: 18px;
   height: 35px;
-  vertical-align: middle;
   display: inline-block;
   padding-left: 10px;
   padding-top: 5px;
   padding-right: 10px;
   border-radius: 5px;
+  margin: 0 auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
-.headerspan {
-  position: absolute;
-  display: inline-block;
-  vertical-align: middle;
-}
 
 .headerspan2 {
   float:right;
@@ -58,6 +55,7 @@ body {
 /*  min-width: 500px;
   max-width: 600px;*/
   width: 500px;
+  background: white;
 }
 
 
@@ -65,10 +63,6 @@ body {
 .searchbox {
   padding: 8px 15px;
   border:2px solid #dbdbdb;
-}
-
-[role="search"]{
-  width: 70%;
 }
 
 .navbar-form .form-group {
@@ -85,6 +79,10 @@ body {
   display: inline;
   font-size: 36px;
   margin-left: 10px;
+}
+
+.fontawesome-signout {
+  text-align: right;
 }
 
 /*Log in modal*/
@@ -113,4 +111,8 @@ body {
   text-align: left;
   font-weight: 100;
   font-size: 12px;
+}
+
+.bottomdiv {
+  height: 50px;
 }

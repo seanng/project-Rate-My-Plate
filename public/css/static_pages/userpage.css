@@ -1,4 +1,30 @@
+.mainheader {
+  font-size: 26px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.stars {
+  color: gold;
+}
+
 .photodiv {
-  width: 100%;
+  margin: 0 auto;
+  margin-top: 15px;
+  width: 80%;
+  height: 377px;
+  border: 2px black solid;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.photodetails {
   height: 30px;
+  margin: 10px auto;
+  width: 80%;
+  font-size: 16px;
+}
+
+.restaurantname {
+  float: right;
 }

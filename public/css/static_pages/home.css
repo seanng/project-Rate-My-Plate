@@ -41,8 +41,6 @@
 
 
 /*Rating Stars*/
-
-
 .ratingdiv {
     width: 300px;
     position: relative;
@@ -79,4 +77,10 @@
 .allstars > span:hover ~ span:before {
    content: "\2605";
    position: absolute;
+}
+
+.btn-success {
+  margin-top: 20px;
+  height: 45px;
+  width: 300px;
 }

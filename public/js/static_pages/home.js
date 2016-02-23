@@ -123,7 +123,7 @@ $(document).ready(function () {
       e.preventDefault();
       // Post an Entry to backend
       var entry = {
-        user_id: user_id.toString(),
+        user_id: user_id,
         // photoURL: ____ ,
         restaurantID: restaurantInfo.getID,
         restaurantName: $('#locationTextField').val(),
@@ -142,7 +142,7 @@ $(document).ready(function () {
         success: function (response) {
           console.log (response);
           console.log ('great success to post entry.');
-          window.location.href = '/'; //Redirect to user page
+          window.location.href = '/userpage/'+user_id; //Redirect to user page
         },
         error: function(response) {
           console.log(response);
