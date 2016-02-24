@@ -42,7 +42,7 @@ h1 {
 
 body {
   font-family: "Lato", sans-serif;
-  background-image:  url('/public/images/cutesushi.png');
+  background-image:  url('/public/images/fabric.png');
   /*background: #FFFAFA;*/
   object-fit: cover;
 }
@@ -136,4 +136,13 @@ h6 {
 
 .bottomdiv {
   height: 50px;
+}
+
+.deleteconfirmation {
+  border-radius: 8px;
+  border: 1px #C8C6AE solid;
+  background: #faf8da;
+  padding: 5px;
+  text-align: right;
+  font-size: 18px;
 }

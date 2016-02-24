@@ -23,6 +23,8 @@ exports.register = function(server, options, next) {
             user_id: request.payload.user_id,
             restaurantID: request.payload.restaurantID,
             restaurantName: restName,
+            restaurantLat: request.payload.restaurantLat,
+            restaurantLong: request.payload.restaurantLong,
             dishName: request.payload.dishName,
             comment: request.payload.comment,
             date: setDate,
@@ -47,6 +49,8 @@ exports.register = function(server, options, next) {
                 dishName: request.payload.dishName,
                 restaurantName: restName,
                 restaurantID: request.payload.restaurantID,
+                restaurantLat: request.payload.restaurantLat,
+                restaurantLong: request.payload.restaurantLong,
                 dishRatings: []
               };
 

@@ -5,7 +5,23 @@ $(document).ready(function () {
       e.preventDefault();
       var searchInput = $('.searchBar').val();
       console.log(searchInput);
-      window.location.href = '/results?searchInput='+searchInput;
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(pos){
+          console.log(pos.coords);
+
+          var lat = pos.coords.latitude;
+          var long = pos.coords.longitude;
+
+          window.location.href = '/results?searchInput=' + searchInput + '&lat=' + lat +'&long=' + long;
+        });
+
+        setTimeout(function(){
+          window.location.href = '/results?searchInput=' + searchInput;
+        }, 3000);
+      } else {
+        window.location.href = '/results?searchInput=' + searchInput;
+      }
     });
   };
 

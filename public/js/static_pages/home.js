@@ -17,8 +17,9 @@ $(document).ready(function () {
 
   //   });
   // };
-
   var restaurantInfo = {
+    latitude: null,
+    longitude: null,
     getID: null
   };
 
@@ -32,17 +33,20 @@ $(document).ready(function () {
 
     google.maps.event.addListener(autocomplete, 'place_changed', function(){
       $('#dishNameTextField').removeAttr('disabled');
-      $('#dishNameTextField').attr('placeholder','Now enter dish name!')
+      $('#dishNameTextField').attr('placeholder','Now enter dish name!');
       var place = autocomplete.getPlace();
+
       restaurantInfo.getID = place.place_id;
-      // restaurantInfo.getLocation = place.geometry.location;
-      getRestaurantDishes();
+      console.log (place);
+      restaurantInfo.latitude = place.geometry.location.lat();
+      restaurantInfo.longitude = place.geometry.location.lng();
+      getRestaurantDishes(restaurantInfo);
     });
   };
 
   var restaurantDishes = [];
 
-  var getRestaurantDishes = function() {
+  var getRestaurantDishes = function(restaurantInfo) {
     $.ajax({
       type: 'POST',
       url: '/api/dishesforautocomplete',
@@ -127,6 +131,8 @@ $(document).ready(function () {
         // photoURL: ____ ,
         restaurantID: restaurantInfo.getID,
         restaurantName: $('#locationTextField').val(),
+        restaurantLat: restaurantInfo.latitude,
+        restaurantLong: restaurantInfo.longitude,
         dishName: $('#dishNameTextField').val(),
         comment: $('textarea').val()
       };

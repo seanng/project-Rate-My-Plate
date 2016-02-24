@@ -28,19 +28,19 @@
           <% } %>
           <% var avgrating = total / ratingsArray.length %>
         <!--/average dish rating -->
-      <tr class="resultrow">
-        <td class="tc1">
-          <a href="/dishpage/<%=dish._id%>">
-            <div class='dishname'><%=dish.dishName%></div>
-          </a>
-          <div class="restaurantname">&nbsp&nbsp&nbsp&nbsp---&nbsp@&nbsp&nbsp<%=dish.restaurantName%></div>
-        </td>
-        <td class="tc2">
-          <%= avgrating.toFixed(2) %>
-          </br><h6>(<%= ratingsArray.length %> vote<%if(ratingsArray.length>1) {%>s<%}%>)</h6>
-        </td>
-        <td class="tc3">Distance</td>
-      </tr>
+        <tr class="resultrow">
+          <td class="tc1">
+            <a href="/dishpage/<%=dish._id%>">
+              <div class='dishname'><%=dish.dishName%></div>
+            </a>
+            <div class="restaurantname">&nbsp&nbsp&nbsp&nbsp---&nbsp@&nbsp&nbsp<%=dish.restaurantName%></div>
+          </td>
+          <td class="tc2">
+            <%= avgrating.toFixed(2) %>
+            </br><h6>(<%= ratingsArray.length %> vote<%if(ratingsArray.length>1) {%>s<%}%>)</h6>
+          </td>
+          <td class="tc3"><%= dish.distance %>m away</td>
+        </tr>
       <% }) %>
     </table>
   </div>
