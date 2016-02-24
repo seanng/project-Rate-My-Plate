@@ -21,6 +21,7 @@ exports.register = function(server, options, next) {
 
           var entryInfo = {
             user_id: request.payload.user_id,
+            username: null,
             restaurantID: request.payload.restaurantID,
             restaurantName: restName,
             restaurantLat: request.payload.restaurantLat,
@@ -32,13 +33,18 @@ exports.register = function(server, options, next) {
             dishID: null
           };
 
+
+
           if (request.payload.dishRating) {
             entryInfo.dishRating = request.payload.dishRating;
           }
 
-          // Before inserting entry, check if dish already exists.
+          db.collection('users').findOne({'_id': ObjectID(entryInfo.user_id)}, function (err, findings) {
+            if (err) {return reply(err);}
+            console.log (findings);
+            entryInfo.username = findings.username;
 
-          db.collection('entries').count({'restaurantID': entryInfo.restaurantID, 'dishName': entryInfo.dishName}, function(err, dishCount){
+            db.collection('entries').count({'restaurantID': entryInfo.restaurantID, 'dishName': entryInfo.dishName}, function(err, dishCount){
 
             console.log ('dishcount is ' + dishCount);
 
@@ -92,6 +98,11 @@ exports.register = function(server, options, next) {
               });
             }
           });
+
+          })
+          // Before inserting entry, check if dish already exists.
+
+
         });
       }
     },
@@ -127,8 +138,7 @@ exports.register = function(server, options, next) {
           var user_id = result.user_id;
           var dishID = request.params.dishID;
 
-          db.collection('entries').find({"dishID": ObjectID(dishID)}).sort({'date':-1}).toArray(function (err, results) {
-            if (err) { return reply(err); }
+          db.collection('entries').find({"dishID": ObjectID(dishID)}).sort({'date':-1}).toArray(function (err, results) { if (err) { return reply(err); }
 
             // Get dish rating and dish location. ->>
             db.collection('dishes').findOne({'_id': ObjectID(dishID)}, function(err, dish) {
@@ -143,7 +153,8 @@ exports.register = function(server, options, next) {
             console.log(dish)
             // Get username info.
               db.collection('users').findOne({'_id': ObjectID(user_id)}, function (err, user) {
-                reply.view('static_pages/dishpage', {entries: results, authenticated: result.authenticated, user_id: user_id, username: user.username, dish: dish, avgrating: avgrating}).code(200);
+
+                reply.view('static_pages/dishpage', {entries: results, authenticated: result.authenticated, user_id: user_id, username: dish.username, dish: dish, avgrating: avgrating}).code(200);
               });
             });
           });

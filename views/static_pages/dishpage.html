@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/public/css/static_pages/entries_pages.css">
 
 <div class="mainheader">
-    <%= dish.dishName %> &nbsp&nbsp&nbsp<i style="font-size: 16px; text-align: right">@<%= dish.restaurantName %></i></style>
+    <%= dish.dishName %> &nbsp&nbsp&nbsp<i style="font-size: 16px; text-align: right;">@<%= dish.restaurantName %></i></style>
 </div>
     <!-- <%= avgrating %> -->
 
@@ -27,7 +27,7 @@
       <span class="stars">★★★★★</span>
     <% } %>
     <span class="entrydate">
-      - <a href="/userpage/<%=entries.user_id %>"><%= username %></a>
+      - <a href="/userpage/<%=entries.user_id %>"><%= entries.username %></a>
     </span>
   </div>
   <% if (entries.comment){ %>

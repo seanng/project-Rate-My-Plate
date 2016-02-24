@@ -29,6 +29,7 @@
 .headerspan2 {
   float:right;
   font-size: 14px;
+  text-align: right;
 }
 
 .stars {
