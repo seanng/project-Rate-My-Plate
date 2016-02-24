@@ -18,7 +18,7 @@ $(document).ready(function () {
 
         setTimeout(function(){
           window.location.href = '/results?searchInput=' + searchInput;
-        }, 3000);
+        }, 7000);
       } else {
         window.location.href = '/results?searchInput=' + searchInput;
       }
