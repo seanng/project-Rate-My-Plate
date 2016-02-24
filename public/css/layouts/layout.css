@@ -1,9 +1,21 @@
 @import url("http://fonts.googleapis.com/css?family=Lato");
 @import url("http://weloveiconfonts.com/api/?family=fontawesome");
-@import url(http://weloveiconfonts.com/api/?family=entypo);
+@import url("http://weloveiconfonts.com/api/?family=entypo");
 
 /* entypo */
-[class*="entypo-"]:before {
+[class="entypo-cancel-squared"]:before {
+  font-family: 'entypo', sans-serif;
+  margin-left: 5px;
+  color: red;
+}
+
+[class="entypo-thumbs-up"]:before {
+  font-family: 'entypo', sans-serif;
+  margin-left: 5px;
+  color: green;
+}
+
+[class="entypo-thumbs-down"]:before {
   font-family: 'entypo', sans-serif;
   margin-left: 5px;
   color: red;
@@ -30,7 +42,7 @@ h1 {
 
 body {
   font-family: "Lato", sans-serif;
-  background-image:  url('/public/images/fabric.png');
+  background-image:  url('/public/images/cutesushi.png');
   /*background: #FFFAFA;*/
   object-fit: cover;
 }

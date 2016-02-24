@@ -148,7 +148,7 @@ exports.register = function(server, options, next) {
     },
     {
       method: 'PUT',
-      path: '/api/entries',
+      path: '/api/entries/updatethisentry',
       handler: function (request, reply) {
         Authenticated(request, function (result) {
           var db = request.server.plugins['hapi-mongodb'].db;
@@ -164,6 +164,26 @@ exports.register = function(server, options, next) {
           });
         });
       }
+    },
+    {
+      method: 'DELETE',
+      path: '/api/entries/deletethisentry',
+      handler: function (request, reply) {
+        Authenticated(request, function (result) {
+          var db = request.server.plugins['hapi-mongodb'].db;
+          var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+          console.log (request.payload.entryid);
+
+          var entryid = ObjectID(request.payload.entryid);
+
+          db.collection('entries').remove({'_id': entryid}, function (err, conclusion) {
+            if (err) { return reply(err).code(400);}
+
+            reply(conclusion).code(200);
+          });
+        });
+      }
+
     }
   ]);
   next();
