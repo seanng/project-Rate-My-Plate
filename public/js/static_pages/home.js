@@ -2,21 +2,6 @@
 
 $(document).ready(function () {
 
-  // Modals
-  // var showCheckInModal = function() {
-  //   $('#enterrestaurant').on('click', function(e) {
-  //     e.preventDefault();
-  //     $('#checkinmodal').modal('show');
-
-  //     var focusBox = function(){
-  //       $('#checkinmodal').on('shown.bs.modal', function(e) {
-  //         $('input[class="searchbox"]')[0].select();
-  //       });
-  //     };
-  //     focusBox();
-
-  //   });
-  // };
   var restaurantInfo = {
     latitude: null,
     longitude: null,

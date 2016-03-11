@@ -6,7 +6,7 @@ var Auth = require('./auth');
 
 exports.register = function(server, options, next) {
   server.route([
-    { // User Page
+    {
       method: 'POST',
       path: '/api/entries',
       handler: function(request, reply) {
@@ -33,76 +33,65 @@ exports.register = function(server, options, next) {
             dishID: null
           };
 
-
-
           if (request.payload.dishRating) {
             entryInfo.dishRating = request.payload.dishRating;
           }
 
-          db.collection('users').findOne({'_id': ObjectID(entryInfo.user_id)}, function (err, findings) {
-            if (err) {return reply(err);}
-            console.log (findings);
-            entryInfo.username = findings.username;
+            db.collection('users').findOne({'_id': ObjectID(entryInfo.user_id)}, function (err, findings) {
+              if (err) {return reply(err);}
+              console.log (findings);
+              entryInfo.username = findings.username;
 
-            db.collection('entries').count({'restaurantID': entryInfo.restaurantID, 'dishName': entryInfo.dishName}, function(err, dishCount){
+              db.collection('entries').count({'restaurantID': entryInfo.restaurantID, 'dishName': entryInfo.dishName}, function(err, dishCount){
 
-            console.log ('dishcount is ' + dishCount);
+              if (err) { return reply(err); }
+              // IF NO ENTRY YET, create new dish
+              if (dishCount === 0) {
+                var newDish = {
+                  dishName: request.payload.dishName,
+                  restaurantName: restName,
+                  restaurantID: request.payload.restaurantID,
+                  restaurantLat: request.payload.restaurantLat,
+                  restaurantLong: request.payload.restaurantLong,
+                  dishRatings: []
+                };
 
-            if (err) { return reply(err); }
-            // IF NO ENTRY YET, create new dish
-            if (dishCount === 0) {
-              var newDish = {
-                dishName: request.payload.dishName,
-                restaurantName: restName,
-                restaurantID: request.payload.restaurantID,
-                restaurantLat: request.payload.restaurantLat,
-                restaurantLong: request.payload.restaurantLong,
-                dishRatings: []
-              };
+                //If the user has rated the dish,
+                if (request.payload.dishRating) {
+                  newDish.dishRatings.push(request.payload.dishRating);
+                }
 
-              //If the user has rated the dish,
-              if (request.payload.dishRating) {
-                newDish.dishRatings.push(request.payload.dishRating);
+                // Create a new dish.
+                db.collection('dishes').insert(newDish, function(err, doc) {
+                  if (err) { return reply(err); }
+                  entryInfo.dishID = doc.ops[0]._id; // entryInfo.dishID will now be updated
+
+                  db.collection('entries').insert(entryInfo, function(err, createdEntry) {
+                    if (err) { return reply(err, "couldn't create new dish"); }
+                    reply (createdEntry);
+                  });
+                });
               }
+              // IF DISH EXISTS,
+              else {
+                db.collection('dishes').findOne({'restaurantID': entryInfo.restaurantID, 'dishName': entryInfo.dishName}, function(err, doc){
+                  console.log(doc);
+                  if (err) { return reply(err); }
+                  entryInfo.dishID = doc._id;
 
-              // Create a new dish.
-              db.collection('dishes').insert(newDish, function(err, doc) {
-                if (err) { return reply(err); }
-                entryInfo.dishID = doc.ops[0]._id; // entryInfo.dishID will now be updated
+                  db.collection('entries').insert(entryInfo, function(err, createdEntry) {
+                    if (err) { return reply(err, "couldn't update new dish"); }
+                    // If user rated, push dishRating from entry to dishRatings array in dish document
+                    if (request.payload.dishRating) {
+                      db.collection('dishes').update({'restaurantID': entryInfo.restaurantID, 'dishName': entryInfo.dishName}, {$push: {dishRatings: entryInfo.dishRating}});
+                    }
 
-                db.collection('entries').insert(entryInfo, function(err, createdEntry) {
-                  if (err) { return reply(err, "couldn't create new dish"); }
-                  reply (createdEntry);
+                    reply (createdEntry);
+                  });
                 });
-              });
-            }
-            // IF DISH EXISTS,
-            else {
-
-              // Retrieve dishID and append to entryInfo.dishID
-                console.log(entryInfo);
-              db.collection('dishes').findOne({'restaurantID': entryInfo.restaurantID, 'dishName': entryInfo.dishName}, function(err, doc){
-                console.log(doc);
-                if (err) { return reply(err); }
-                entryInfo.dishID = doc._id;
-
-                db.collection('entries').insert(entryInfo, function(err, createdEntry) {
-                  if (err) { return reply(err, "couldn't update new dish"); }
-                  // If user rated, push dishRating from entry to dishRatings array in dish document
-                  if (request.payload.dishRating) {
-                    db.collection('dishes').update({'restaurantID': entryInfo.restaurantID, 'dishName': entryInfo.dishName}, {$push: {dishRatings: entryInfo.dishRating}});
-                  }
-
-                  reply (createdEntry);
-                });
-              });
-            }
+              }
+            });
           });
-
-          })
-          // Before inserting entry, check if dish already exists.
-
-
         });
       }
     },
@@ -154,7 +143,7 @@ exports.register = function(server, options, next) {
             // Get username info.
               db.collection('users').findOne({'_id': ObjectID(user_id)}, function (err, user) {
 
-                reply.view('static_pages/dishpage', {entries: results, authenticated: result.authenticated, user_id: user_id, username: dish.username, dish: dish, avgrating: avgrating}).code(200);
+                reply.view('static_pages/dishpage', {entries: results, authenticated: result.authenticated, user_id: user_id, dish: dish, avgrating: avgrating}).code(200);
               });
             });
           });
