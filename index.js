@@ -30,6 +30,29 @@ var plugins = [
     }
   },
   {
+    register: require('./routes/image-uploads.js'),
+    options: {
+      views: {
+        path: 'templates',
+        engines: {
+          html: 'handlebars'
+        }
+      },
+      cors: true,
+      payload: {
+        multipart: {
+          mode: "file",
+          uploadDir: "./uploads"
+        },
+        maxBytes: 10048576,
+      },
+      timeout: {
+        client: '500000',
+        socket: '600000'
+      }
+    }
+  },
+  {
     register: require('yar'), // setup cookie stuff
     options: {
       cookieOptions: {

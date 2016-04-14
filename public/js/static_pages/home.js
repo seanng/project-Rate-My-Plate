@@ -17,6 +17,15 @@ $(document).ready(function () {
 
   //   });
   // };
+
+
+  // Image upload
+
+  $('#uploadbutton').fileUploader({
+    action: '/image/upload',
+    postKey: 'file'
+  });
+
   var restaurantInfo = {
     latitude: null,
     longitude: null,
