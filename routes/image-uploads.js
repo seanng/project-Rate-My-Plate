@@ -1,13 +1,15 @@
+var uploadHandler = require('../uploadHandler').upload;
+
 exports.register = function(server, options, next) {
   server.route([
     {
       method: 'POST',
       path: '/image/upload',
-      config: {
-        handler: uploadHandler.upload
-      }
-    },
+      handler: uploadHandler
+    }
   ]);
+
+  next();
 };
 
 exports.register.attributes = {

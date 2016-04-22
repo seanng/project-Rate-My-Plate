@@ -44,7 +44,7 @@ var plugins = [
           mode: "file",
           uploadDir: "./uploads"
         },
-        maxBytes: 10048576,
+        maxBytes: 10485760,
       },
       timeout: {
         client: '500000',
