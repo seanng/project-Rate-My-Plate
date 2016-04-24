@@ -5,15 +5,13 @@
 var AWS = require('aws-sdk');
 AWS.config.loadFromPath('./aws_config.json');
 
-exports.upload = function (request) {
+exports.upload = function (request, reply) {
   // Check if POST of GET
   if (request.payload) {
-    console.log(request.payload)
     // Set uploaded file(s)
     var f = request.payload.file;
     // Get path of uploaded file(s)
     // var path = f.path;
-    console.log(f);
     // Get image name(s) of uploaded file(s)
     // var imageName = f.originalFilename;
     // Set path/file for thumbnail(s)
@@ -35,6 +33,7 @@ exports.upload = function (request) {
           console.log("Error uploading data: ", perr);
         }
         else {
+
           console.log("Successfully uploaded data to myBucket/myKey");
           // Delete the original file from  server
           // fs.unlink(path, function (err) {
@@ -42,7 +41,9 @@ exports.upload = function (request) {
             // console.log('Successfully deleted path: ' + f.path);
           // });
             // JSON return for JQuery Upload
-          request.reply('{"files": [{ "name": "' + time + '","size": ' + f.size + ',"url": "https:\/\/s3.amazonaws.com\/yourbucketname\/' + time + '","thumbnailUrl": "https:\/\/s3.amazonaws.com\/yourbucketname\/thumb_' + time + '","deleteUrl": "https:\/\/s3.amazonaws.com\/yourbucketname\/' + time + '","deleteType": "DELETE"}]}');
+          var imageURL = "https:\/\/s3.amazonaws.com\/rate-my-plate\/"+time;
+          reply({imageURL: imageURL});
+          // request.reply('{"files": [{ "name": "' + time + '","size": ' + f.size + ',"url": "https:\/\/s3.amazonaws.com\/yourbucketname\/' + time + '","thumbnailUrl": "https:\/\/s3.amazonaws.com\/yourbucketname\/thumb_' + time + '","deleteUrl": "https:\/\/s3.amazonaws.com\/yourbucketname\/' + time + '","deleteType": "DELETE"}]}');
         }
       });
     // });
@@ -53,3 +54,4 @@ exports.upload = function (request) {
     request.reply("Ready");
   }
 };
+

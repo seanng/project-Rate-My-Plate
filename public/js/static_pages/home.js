@@ -21,10 +21,29 @@ $(document).ready(function () {
 
   // Image upload
 
-  $('#uploadbutton').fileUploader({
-    action: '/image/upload',
-    postKey: 'file'
+  // $('#uploadbutton').fileUploader({
+  //   action: '/image/upload',
+  //   postKey: 'file'
+  // });
+
+  $('#uploadbutton').on('click', function(e){
+    $('#uploadinput').trigger('click');
   });
+
+  document.getElementById("uploadinput").onchange = function() {
+    document.getElementById("imageform").submit(function(){
+      $('#imageform').ajaxForm({
+        dataType: 'json',
+        url: "/image/upload",
+        type: 'post',
+        target: '#imagepreview',
+        success: function (response) {
+          console.log(response);
+        }
+      });
+    });
+  };
+
 
   var restaurantInfo = {
     latitude: null,
