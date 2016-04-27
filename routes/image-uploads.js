@@ -5,6 +5,13 @@ exports.register = function(server, options, next) {
     {
       method: 'POST',
       path: '/image/upload',
+      config: {
+        payload: {
+          output: 'stream',
+          parse: true,
+          allow: 'multipart/form-data'
+        }
+      },
       handler: uploadHandler
     }
   ]);

@@ -18,13 +18,13 @@ app.controller('HomeCtrl',['$scope', '$http', 'Upload', function($scope, $http, 
     Upload.upload({
       url: '/image/upload',
       type: 'post',
-      fields: { image: $scope.finishedImage }
+      fields: $scope.finishedImage
     }).success(function(response){
       console.log('success uploading');
       console.log(response);
       var entry = {
         user_id: user_id,
-        photoURL: response ,
+        imageURL: response.imageURL,
         restaurantID: restaurantInfo.getID,
         restaurantName: $scope.restaurantName,
         restaurantLat: restaurantInfo.latitude,

@@ -2,43 +2,43 @@
 <div class="mainheader">
   <%= username %>'s entries
 </div>
-<% entries.forEach(function(entries){ %>
+<% entries.forEach(function(entry){ %>
 <div class="entrydiv">
   <div class='headerdiv'>
-    <span class='headerspan1'><a href="/dishpage/<%=entries.dishID %>"><%= entries.dishName %></a></span>
-    <span class='headerspan2'>@ <%= entries.restaurantName %>
+    <span class='headerspan1'><a href="/dishpage/<%=entry.dishID %>"><%= entry.dishName %></a></span>
+    <span class='headerspan2'>@ <%= entry.restaurantName %>
       <% if (currentid===user_id) { %>
-        <span alt="<%=entries._id%>" class='entypo-cancel-squared'></span>
+        <span alt="<%=entry._id%>" class='entypo-cancel-squared'></span>
       <% } %>
     <span>
   </div>
   <div class='photodiv'>
-
+    <img src="<%= entry.imageURL%>">
   </div>
 
   <div class="photodetails">
-    <% if (entries.dishRating===1) { %>
+    <% if (entry.dishRating===1) { %>
       <span class="stars">★☆☆☆☆</span>
-    <% } else if (entries.dishRating==2){ %>
+    <% } else if (entry.dishRating==2){ %>
       <span class="stars">★★☆☆☆</span>
-    <% } else if (entries.dishRating==3){ %>
+    <% } else if (entry.dishRating==3){ %>
       <span class="stars">★★★☆☆</span>
-    <% } else if (entries.dishRating==4){ %>
+    <% } else if (entry.dishRating==4){ %>
       <span class="stars">★★★★☆</span>
-    <% } else if (entries.dishRating==5){ %>
+    <% } else if (entry.dishRating==5){ %>
       <span class="stars">★★★★★</span>
     <% } %>
     <span class="entrydate">
-      <%= entries.readableDate %>
+      <%= entry.readableDate %>
     </span>
   </div>
-  <% if (entries.comment){ %>
+  <% if (entry.comment){ %>
   <div class="commentdiv">
     <% if (currentid===user_id) { %>
-      <input class="txtBox" type="textbox" alt="<%=entries._id%>" value="<%=entries.comment %>" style="display:none;" />
+      <input class="txtBox" type="textbox" alt="<%=entry._id%>" value="<%=entry.comment %>" style="display:none;" />
     <% } %>
     <div class="commentbox">
-      <%= entries.comment %>
+      <%= entry.comment %>
     </div>
   </div>
   <% } %>

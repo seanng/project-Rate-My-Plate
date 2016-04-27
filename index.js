@@ -19,6 +19,7 @@ var plugins = [
   { register: require('./routes/api/auth.js')},
   { register: require('./routes/api/entries.js')}, // Route for entries data
   { register: require('./routes/api/users.js')}, // Routes for user data
+  { register: require('./routes/image-uploads.js')},
   { register: require('hapi-mongodb'), // setup the mongo connect
     options: {
       "url": process.env.MONGOLAB_URI || "mongodb://127.0.0.1:27017/ratemyplate", // CHANGED
@@ -26,29 +27,6 @@ var plugins = [
         "db": {
           "native_parser": false
         }
-      }
-    }
-  },
-  {
-    register: require('./routes/image-uploads.js'),
-    options: {
-      views: {
-        path: 'templates',
-        engines: {
-          html: 'handlebars'
-        }
-      },
-      cors: true,
-      payload: {
-        multipart: {
-          mode: "file",
-          uploadDir: "./uploads"
-        },
-        maxBytes: 10485760,
-      },
-      timeout: {
-        client: '500000',
-        socket: '600000'
       }
     }
   },

@@ -1,57 +1,56 @@
 // Filesystem
-// var fs = require('fs');
+var fs = require('fs');
 
 // AWS SDK
 var AWS = require('aws-sdk');
 AWS.config.loadFromPath('./aws_config.json');
 
 exports.upload = function (request, reply) {
-  // Check if POST of GET
+  var data  = request.payload;
+
   if (request.payload) {
-    // Set uploaded file(s)
-    var f = request.payload.file;
-    // Get path of uploaded file(s)
-    // var path = f.path;
-    // Get image name(s) of uploaded file(s)
-    // var imageName = f.originalFilename;
-    // Set path/file for thumbnail(s)
-    // var thumbPath = __dirname + "/uploads/thumbs/" + imageName;
+    var filename = data.file.hapi.filename;
+    var path = __dirname + "/uploads/" + filename;
 
-    var s3 = new AWS.S3();
-    // fs.readFile(path, function(err, file_buffer){
-      var date = new Date();
-      var time = date.getTime().toString();
-      var params = {
-        Bucket: 'rate-my-plate',
-        Key: time,
-        Body: f,
-        ACL:'public-read'
-      };
+    var file = fs.createWriteStream(path);
 
-      s3.putObject(params, function (perr, pres) {
-        if (perr) {
-          console.log("Error uploading data: ", perr);
-        }
-        else {
+    file.on('error', function (err) {
+      console.log(err);
+    });
 
-          console.log("Successfully uploaded data to myBucket/myKey");
-          // Delete the original file from  server
-          // fs.unlink(path, function (err) {
-            // if (err) throw err;
-            // console.log('Successfully deleted path: ' + f.path);
-          // });
-            // JSON return for JQuery Upload
-          var imageURL = "https:\/\/s3.amazonaws.com\/rate-my-plate\/"+time;
-          reply({imageURL: imageURL});
-          // request.reply('{"files": [{ "name": "' + time + '","size": ' + f.size + ',"url": "https:\/\/s3.amazonaws.com\/yourbucketname\/' + time + '","thumbnailUrl": "https:\/\/s3.amazonaws.com\/yourbucketname\/thumb_' + time + '","deleteUrl": "https:\/\/s3.amazonaws.com\/yourbucketname\/' + time + '","deleteType": "DELETE"}]}');
-        }
+    data.file.pipe(file);
+
+    data.file.on('end', function (err) {
+      if (err) { console.log(err); }
+
+      var s3 = new AWS.S3();
+      fs.readFile(path, function (err, dataBuffer) {
+        if (err) { console.log(err); }
+        var date = new Date();
+        var time = date.getTime().toString();
+        var params = {
+          Bucket: 'rate-my-plate',
+          Key: filename,
+          Body: dataBuffer,
+          ACL:'public-read'
+        };
+
+        s3.putObject(params, function (perr, pres) {
+          if (perr) {
+            console.log("Error uploading data: ", perr);
+          } else {
+            console.log("Successfully uploaded data to myBucket/myKey");
+            fs.unlink(path, function (err) {
+              if (err) { console.log(err); }
+              console.log('Successfully deleted path: ' + path);
+              var imageURL = "https:\/\/s3.amazonaws.com\/rate-my-plate\/"+filename;
+              reply({imageURL: imageURL});
+            });
+          }
+        });
       });
-    // });
-
-  }
-  else {
-    // GET request reply
-    request.reply("Ready");
+    });
+  } else {
+    reply({message: "no file"});
   }
 };
-

@@ -21,6 +21,7 @@ exports.register = function(server, options, next) {
 
           var entryInfo = {
             user_id: request.payload.user_id,
+            imageURL: request.payload.imageURL,
             username: null,
             restaurantID: request.payload.restaurantID,
             restaurantName: restName,
