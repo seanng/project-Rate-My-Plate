@@ -10,6 +10,7 @@ exports.upload = function (request, reply) {
   if (request.payload) {
     // Set uploaded file(s)
     var f = request.payload.file;
+    console.log(request.payload);
     // Get path of uploaded file(s)
     // var path = f.path;
     // Get image name(s) of uploaded file(s)
@@ -35,12 +36,6 @@ exports.upload = function (request, reply) {
         else {
 
           console.log("Successfully uploaded data to myBucket/myKey");
-          // Delete the original file from  server
-          // fs.unlink(path, function (err) {
-            // if (err) throw err;
-            // console.log('Successfully deleted path: ' + f.path);
-          // });
-            // JSON return for JQuery Upload
           var imageURL = "https:\/\/s3.amazonaws.com\/rate-my-plate\/"+time;
           reply({imageURL: imageURL});
           // request.reply('{"files": [{ "name": "' + time + '","size": ' + f.size + ',"url": "https:\/\/s3.amazonaws.com\/yourbucketname\/' + time + '","thumbnailUrl": "https:\/\/s3.amazonaws.com\/yourbucketname\/thumb_' + time + '","deleteUrl": "https:\/\/s3.amazonaws.com\/yourbucketname\/' + time + '","deleteType": "DELETE"}]}');

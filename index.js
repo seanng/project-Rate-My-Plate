@@ -40,11 +40,13 @@ var plugins = [
       },
       cors: true,
       payload: {
-        multipart: {
-          mode: "file",
-          uploadDir: "./uploads"
-        },
-        maxBytes: 10485760,
+        output: 'stream',
+        // multipart: {
+        //   mode: "file",
+        //   uploadDir: "./uploads"
+        // },
+        parse: true,
+        maxBytes: 20485760,
       },
       timeout: {
         client: '500000',

@@ -30,6 +30,7 @@ exports.register = function(server, options, next) {
             comment: request.payload.comment,
             date: setDate,
             readableDate: readableDate,
+            // dishPhoto: request.payload.photoURL,
             dishID: null
           };
 
@@ -99,7 +100,7 @@ exports.register = function(server, options, next) {
             }
           });
 
-          })
+          });
           // Before inserting entry, check if dish already exists.
 
 
