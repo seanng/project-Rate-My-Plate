@@ -12,12 +12,17 @@ server.connection({
 var plugins = [
   { register: require('vision')}, // views
   { register: require('inert')}, // public files hosting
-  { register: require('./routes/static_pages.js')},
+  { register: require('./routes/static_pages.js')}, // Route to GET HTML files
   { register: require('./routes/auth.js')},
+  { register: require('./routes/api/sessions.js')},
+  { register: require('./routes/api/dishes.js')},
   { register: require('./routes/api/auth.js')},
+  { register: require('./routes/api/entries.js')}, // Route for entries data
+  { register: require('./routes/api/users.js')}, // Routes for user data
+  { register: require('./routes/image-uploads.js')},
   { register: require('hapi-mongodb'), // setup the mongo connect
     options: {
-      "url": process.env.MONGOLAB_URI || "mongodb://127.0.0.1:27017/hapi-template", // CHANGE-ME
+      "url": process.env.MONGOLAB_URI || "mongodb://127.0.0.1:27017/ratemyplate", // CHANGED
       "settings": {
         "db": {
           "native_parser": false
@@ -42,7 +47,7 @@ server.register(plugins, function(err){
 
   // configure views
   server.views({
-    engines: {html: require('handlebars')},
+    engines: {html: require('ejs')},
     path: Path.join(__dirname, 'views'),
     layout: true,
     layoutPath: Path.join(__dirname, 'views/layouts')

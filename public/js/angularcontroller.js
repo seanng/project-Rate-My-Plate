@@ -1,57 +1,60 @@
-// jQuery of Home Page
+var app = angular.module('RateMyPlateApp', ['ngFileUpload']);
+var finishedImage;
+var user_id;
+var restaurantInfo = {
+  latitude: null,
+  longitude: null,
+  getID: null
+};
+var dishGrade = null;
 
-$(document).ready(function () {
+app.controller('HomeCtrl',['$scope', '$http', 'Upload', function($scope, $http, Upload){
 
-  // Modals
-  // var showCheckInModal = function() {
-  //   $('#enterrestaurant').on('click', function(e) {
-  //     e.preventDefault();
-  //     $('#checkinmodal').modal('show');
+  $scope.finishedImage = {};
 
-  //     var focusBox = function(){
-  //       $('#checkinmodal').on('shown.bs.modal', function(e) {
-  //         $('input[class="searchbox"]')[0].select();
-  //       });
-  //     };
-  //     focusBox();
+  $scope.gobutton = function(){
+    console.log(user_id);
 
-  //   });
-  // };
-
-
-  // Image upload
-
-  // $('#uploadbutton').fileUploader({
-  //   action: '/image/upload',
-  //   postKey: 'file'
-  // });
-
-  // $('#uploadbutton').on('click', function(e){
-  //   $('#uploadinput').trigger('click');
-  // });
-
-  document.getElementById("uploadinput").onchange = function() {
-    document.getElementById("imageform").submit(function(){
-      $('#imageform').ajaxForm({
-        dataType: 'json',
-        url: "/image/upload",
-        type: 'post',
-        target: '#imagepreview',
-        success: function (response) {
-          console.log(response);
-        }
+    Upload.upload({
+      url: '/image/upload',
+      type: 'post',
+      fields: $scope.finishedImage
+    }).success(function(response){
+      console.log('success uploading');
+      console.log(response);
+      var entry = {
+        user_id: user_id,
+        imageURL: response.imageURL,
+        restaurantID: restaurantInfo.getID,
+        restaurantName: $scope.restaurantName,
+        restaurantLat: restaurantInfo.latitude,
+        restaurantLong: restaurantInfo.longitude,
+        dishName: $scope.dishName,
+        comment: $scope.userComment
+      };
+      if (dishGrade){
+        entry.dishRating = dishGrade;
+      }
+      $http({
+        method: 'POST',
+        url: '/api/entries',
+        data: entry
+      }).success(function(response){
+        console.log (response);
+        console.log ('great success to post entry.');
+        window.location.href = '/userpage/'+user_id; //Redirect to user page
+      }).error(function(response){
+        console.log(response);
       });
     });
   };
 
 
-  var restaurantInfo = {
-    latitude: null,
-    longitude: null,
-    getID: null
-  };
+}]);
 
-  var user_id = $('#submitbutton').attr('alt');
+$(document).ready(function () {
+
+  user_id = $('#submitbutton').attr('data-id');
 
   var restaurantAutocomplete = function() {
     var input = document.getElementById('locationTextField');
@@ -99,8 +102,6 @@ $(document).ready(function () {
       }
     });
   };
-
-  var dishGrade = null; // will change everytime a different star is clicked.
 
   var clickStars = function() {
     $('#rating1').on('click', function(e){
@@ -150,46 +151,11 @@ $(document).ready(function () {
     });
   };
 
-  var submitEntry = function() {
-    $('#submitbutton').on('click', function (e){
-      e.preventDefault();
-      // Post an Entry to backend
-      var entry = {
-        user_id: user_id,
-        // photoURL: ____ ,
-        restaurantID: restaurantInfo.getID,
-        restaurantName: $('#locationTextField').val(),
-        restaurantLat: restaurantInfo.latitude,
-        restaurantLong: restaurantInfo.longitude,
-        dishName: $('#dishNameTextField').val(),
-        comment: $('textarea').val()
-      };
-
-      if (dishGrade) {
-        entry.dishRating = dishGrade;
-      }
-      console.log (entry);
-      $.ajax ({
-        type: "POST",
-        url: '/api/entries',
-        data: entry,
-        success: function (response) {
-          console.log (response);
-          console.log ('great success to post entry.');
-          window.location.href = '/userpage/'+user_id; //Redirect to user page
-        },
-        error: function(response) {
-          console.log(response);
-        }
-      });
-    });
-  };
-
   var init = function(){
     // showCheckInModal();
     restaurantAutocomplete();
     clickStars();
-    submitEntry();
+    // submitEntry();
   };
 
   //append restaurant ID to dish input box

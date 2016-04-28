@@ -57,7 +57,7 @@ exports.register = function(server, options, next) {
               if (err) { return reply('Internal MongoDB error', err).code(400); }
 
               if (userMongo === null) {
-                return reply({ "message": "User doesn't exist" }).code(400);
+                return reply({message: 'User does not exist.' }).code(400);
               }
 
               Bcrypt.compare(user.password, userMongo.password, function(err, result) {
@@ -75,12 +75,12 @@ exports.register = function(server, options, next) {
                     }
 
                     // Store the Session information in the browser Cookie
-                    request.yar.set('hapi_template_session', newSession); // CHANGE-ME
+                    request.yar.set('hapi_ratemyplate_session', newSession); // CHANGED
 
                     return reply({ "message:": "Authenticated" }).code(200);
                   });
                 } else {
-                  reply({ message: "Not authorized" }).code(400);
+                  reply({ message: "Please try again." }).code(400);
                 }
               });
           });
@@ -98,7 +98,7 @@ exports.register = function(server, options, next) {
       path: '/api/signout',
       handler: function(request, reply) {
         var db = request.server.plugins['hapi-mongodb'].db;
-        var session = request.yar.get('hapi_template_session'); // CHANGE-ME
+        var session = request.yar.get('hapi_ratemyplate_session'); // CHANGED
 
         if (!session) {
           return reply({ "message": "Already logged out" }).code(400);

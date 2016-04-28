@@ -1,21 +1,7 @@
-var Authenticated = require("./modules/Authenticated.js");
+var Authenticated = require("./modules/authenticated.js");
 
 exports.register = function (server, options, next) {
   server.route([
-    {
-      method: 'GET',
-      path: '/signup',
-      handler: function (request, reply) {
-        Authenticated(request, function (result) {
-          // if already signed in, redirect to your main collection page
-          if (result.authenticated) {
-            reply.redirect('/myCollection'); // CHANGE-ME
-          } else {
-            reply.view('auth/signup', {message: request.query.message});
-          }
-        });
-      }
-    },
     {
       method: 'GET',
       path: '/signin',
@@ -23,7 +9,7 @@ exports.register = function (server, options, next) {
         Authenticated(request, function (result) {
           // if already signed in, redirect to your main collection page
           if (result.authenticated) {
-            reply.redirect('/myCollection'); // CHANGE-ME
+            reply.redirect('/signedin'); // CHANGE-ME
           } else {
             reply.view('auth/signin', {message: request.query.message});
           }

@@ -1,6 +1,83 @@
-<div id="home-page">
-  <h2>Home Page</h2>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.0.4/ng-file-upload.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.0.4/ng-file-upload-shim.min.js"></script>
+<script src="/public/js/angularcontroller.js"></script>
+
+<div id="home-page" ng-app="RateMyPlateApp" ng-controller="HomeCtrl">
+  <h1>Rate My Plate</h1>
+
+
+  <!-- Photo Upload -->
+
+  <div id="imageupload">
+    <img ng-show="finishedImage.file" ngf-src="finishedImage.file" width="350" style="margin-bottom:30px;"><br>
+    <h3 style="color: red;" ng-if="!finishedImage.file">Take a photo!</h3>
+    <button class="btn btn-default fa fa-camera-retro fa-3x" ngf-select ng-model="finishedImage.file"></button><br>
+  </div>
+
+  <!-- <button type="button" ng-click="gobutton()" class="btn btn-success">Upload</button> -->
+
+  <!-- <form id="imageform"></form>
+    <input type="file" id="uploadinput" style="opacity:0; height:0px;width:0px;">
+  <div id="imagepreview">
+
+  </div> -->
+
+  <div class="form-group" id="enterrestaurant">
+    <input class="form-control" ng-model="restaurantName" id="locationTextField" placeholder="Step 1: Enter restaurant name">
+  </div>
+  <div class="form-group" id="enterdish">
+    <input class="form-control" ng-model="dishName" id="dishNameTextField" type="text" placeholder="Step 2: Enter dish name" disabled>
+  </div>
+
+<!-- RATING - Form -->
+  <div class="ratingdiv">
+    <span class="ratinglabel">
+      Rating:&nbsp&nbsp&nbsp&nbsp&nbsp
+    </span>
+    <span class="allstars">
+      <span id="rating5">☆</span><span id="rating4">☆</span><span id="rating3">☆</span><span id="rating2">☆</span><span id="rating1">☆</span>
+    </span>
+  </div>
+
+<!-- Comment blurb -->
+
+  <textarea ng-model="userComment" id="commentblurb" placeholder="Leave a comment? (optional)" class="form-control" rows="3"></textarea>
+
+<!-- Submit button -->
+  <% if (authenticated) { %>
+    <button type="button" ng-click="gobutton($element)" id="submitbutton" data-id="<%= user_id %>" class="btn btn-success">GO</button>
+  <% } else { %>
+    <button type="button" id="falsesubmitbutton" data-toggle="modal" data-target="#signin-modal" class="btn btn-success">GO</button>
+
+  <% } %>
+  <!-- Check in modal -->
+  <div class="modal fade" id="checkinmodal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="checkinmodal-title">Check in to restaurant</h4>
+        </div>
+        <div class="modal-body">
+          <!-- Search box goes here -->
+          <form>
+            <input class="searchbox" type="text" placeholder="Search..." required>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
-<script src="/public/js/static_pages/home.js"></script>
-<link rel="stylesheet" href="/public/css/static_pages/home.css">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<!-- <script src="https://rawgit.com/firstandthird/file-uploader/master/dist/file-uploader.full.js"></script> -->
+<!-- <script src="/public/js/static_pages/home.js"></script> -->
+<link rel="stylesheet" href="public/css/static_pages/home.css">

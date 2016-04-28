@@ -1,0 +1,148 @@
+@import url("http://fonts.googleapis.com/css?family=Lato");
+@import url("http://weloveiconfonts.com/api/?family=fontawesome");
+@import url("http://weloveiconfonts.com/api/?family=entypo");
+
+/* entypo */
+[class="entypo-cancel-squared"]:before {
+  font-family: 'entypo', sans-serif;
+  margin-left: 5px;
+  color: red;
+}
+
+[class="entypo-thumbs-up"]:before {
+  font-family: 'entypo', sans-serif;
+  margin-left: 5px;
+  color: green;
+}
+
+[class="entypo-thumbs-down"]:before {
+  font-family: 'entypo', sans-serif;
+  margin-left: 5px;
+  color: red;
+}
+
+h1 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 50px;
+}
+
+.titlediv {
+  text-align: justify;
+}
+
+.titlediv:after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+
+/*html {
+  font-size: 62.5%;
+}*/
+
+body {
+  font-family: "Lato", sans-serif;
+  background-image:  url('/public/images/fabric.png');
+  /*background: #FFFAFA;*/
+  object-fit: cover;
+}
+
+h6 {
+  font-size: 10px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+#contentdiv {
+
+}
+
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+
+[class="fontawesome-user"] {
+  margin-right: 8px;
+}
+
+/* The page and all its content */
+#everything {
+  margin: 0 auto;
+/*  min-width: 500px;
+  max-width: 600px;*/
+  width: 460px;
+  text-align: center;
+
+}
+
+
+/*NavBar Stuff*/
+.searchbox {
+  padding: 8px 15px;
+  border:2px solid #dbdbdb;
+}
+
+.searchForm {
+  margin: 8px auto;
+}
+
+.navbar-form .form-group {
+  width: 100%;
+}
+
+.navbar-form .form-control {
+  width: 100%;
+}
+
+/*For all fontawesome icons other than Lock*/
+
+[class*="fontawesome-"] {
+  display: inline;
+  font-size: 36px;
+  margin-left: 2px;
+}
+
+.fontawesome-signout {
+  text-align: right;
+}
+
+/*Log in modal*/
+
+.modal-dialog {
+    width: 300px;
+}
+.modal-footer {
+    height: 70px;
+    margin: 0;
+}
+.modal-footer .btn {
+    font-weight: bold;
+}
+#modal-footer-sign-in .progress {
+    display: none;
+    height: 32px;
+    margin: 0;
+}
+.input-group-addon {
+    color: #fff;
+    background: #3276B1;
+}
+
+#registeraccount {
+  text-align: left;
+  font-weight: 100;
+  font-size: 12px;
+}
+
+.bottomdiv {
+  height: 50px;
+}
+
+.deleteconfirmation {
+  border-radius: 8px;
+  border: 1px #C8C6AE solid;
+  background: #faf8da;
+  padding: 5px;
+  text-align: right;
+  font-size: 18px;
+}

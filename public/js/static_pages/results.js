@@ -1,0 +1,1 @@
+// jQuery of results page

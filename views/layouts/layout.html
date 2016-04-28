@@ -1,24 +1,129 @@
+<!-- Layout: NavBar above content;
+NAVBAR LEFT: Back button false if Home, else true.
+NAVBAR RIGHT: User icon if authenticated, Login icon if unauthenticated  -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hapi Template</title> <!-- CHANGE-ME -->
-
+  <title>Rate My Plate</title> <!-- CHANGED -->
+  <!-- Bootstrap, jQuery, Layout, and jQuery UI JS files-->
   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <!-- AngularJS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <!-- Google Maps API -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwgejdknqxK_7RDtdus9aVE2lzKrUeW5M&libraries=places"></script>
+  <script src="http://malsup.github.com/jquery.form.js"></script>
   <script src="/public/js/layouts/layout.js"></script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <!-- Font awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="/public/css/layouts/layout.css">
+  <style>
+    <% if (authenticated) { %>
+      [role="search"]{width: 65%;}
+    <% } else { %>
+      [role="search"]{width: 75%;}
+    <% } %>
+  </style>
 </head>
 <body>
-  {{#if authenticated}}
-    <button id="signout-btn" class="btn btn-default">Sign Out</button>
-  {{else}}
-    <a href="/signup" class="btn btn-default">Sign Up</a>
-    <a href="/signin" class="btn btn-default">Sign In</a>
-  {{/if}}
+  <div id="everything">
+    <header>
+      <!-- NavBar on top -->
+      <nav class="navbar navbar-default">
+        <!-- <div class="container"> -->
+          <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a href="/"><span class="fontawesome-food"></span></a></li>
+            </ul>
+            <form class="navbar-form navbar-left searchForm" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control searchBar" placeholder="Search">
+              </div>
+              <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+            </form>
+            <!-- <ul class="nav navbar-nav">
+              <li> -->
 
-  {{{content}}}
+                <% if (authenticated) { %>
+                  <a href="/userpage/<%= user_id %>"><span class="fontawesome-user"></span></a>
+                  <span class="fontawesome-signout"></span>
+                <% } else { %>
+                  <span class="fontawesome-signin" data-toggle="modal" data-target="#signin-modal"></span>
+                <% } %>
+              <!-- </li>
+            </ul> -->
+          </div><!-- /.navbar-collapse -->
+        <!-- </div>/.container-fluid -->
+      </nav>
+    </header>
+      <div id="contentdiv">
+        <%- content %>
+      </div>
+    <div class="bottomdiv">
+    </div>
+    <!-- Login Modal-->
+    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-labelledby="SignIn" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="SignIn">Please sign in</h4>
+          </div> <!-- /.modal-header -->
+
+          <div class="modal-body">
+            <form role="form">
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control loginmodalforms" id="uLogin" placeholder="Login">
+                  <label for="uLogin" class="input-group-addon glyphicon glyphicon-user"></label>
+                </div>
+              </div> <!-- /.form-group -->
+
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="password" class="form-control loginmodalforms" id="uPassword" placeholder="Password">
+                  <label for="uPassword" class="input-group-addon glyphicon glyphicon-lock"></label>
+                </div> <!-- /.input-group -->
+              </div> <!-- /.form-group -->
+
+              <div id= "registeraccount">
+                Don't have an account? <a href="/signup">Sign up!</a>
+              </div> <!-- /.checkbox -->
+            </form>
+
+          </div> <!-- /.modal-body -->
+
+          <div class="modal-footer" id="modal-footer-sign-in">
+            <button class="form-control btn btn-primary">Ok</button>
+            <div class="progress">
+              <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="100" style="width: 0%;">
+                <span class="sr-only">progress</span>
+              </div>
+            </div>
+          </div> <!-- /#modal-footer-sign-in-modal -->
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
