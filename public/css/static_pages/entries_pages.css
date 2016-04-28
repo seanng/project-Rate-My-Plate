@@ -54,6 +54,11 @@
   vertical-align: middle;
 }
 
+.dishimage {
+  max-height: 100%;
+  max-width: 100%;
+}
+
 .photodetails {
   height: 30px;
   margin: 10px auto;
