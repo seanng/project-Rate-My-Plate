@@ -16,12 +16,13 @@ NAVBAR RIGHT: User icon if authenticated, Login icon if unauthenticated  -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
   <!-- Google Maps API -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwgejdknqxK_7RDtdus9aVE2lzKrUeW5M&libraries=places"></script>
-  <script src="https://malsup.github.com/jquery.form.js"></script>
+  <!-- <script src="https://malsup.github.com/jquery.form.js"></script> -->
   <script src="/public/js/layouts/layout.js"></script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <!-- Google Fonts -->
   <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
   <!-- Font awesome -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -39,40 +40,34 @@ NAVBAR RIGHT: User icon if authenticated, Login icon if unauthenticated  -->
     <header>
       <!-- NavBar on top -->
       <nav class="navbar navbar-default">
-        <!-- <div class="container"> -->
-          <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="/"><span class="fontawesome-food"></span></a></li>
+          </ul>
+          <form class="navbar-form navbar-left searchForm" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control searchBar" placeholder="Search">
             </div>
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-              <li><a href="/"><span class="fontawesome-food"></span></a></li>
-            </ul>
-            <form class="navbar-form navbar-left searchForm" role="search">
-              <div class="form-group">
-                <input type="text" class="form-control searchBar" placeholder="Search">
-              </div>
-              <!-- <button type="submit" class="btn btn-default">Submit</button> -->
-            </form>
-            <!-- <ul class="nav navbar-nav">
-              <li> -->
+            <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+          </form>
 
-                <% if (authenticated) { %>
-                  <a href="/userpage/<%= user_id %>"><span class="fontawesome-user"></span></a>
-                  <span class="fontawesome-signout"></span>
-                <% } else { %>
-                  <span class="fontawesome-signin" data-toggle="modal" data-target="#signin-modal"></span>
-                <% } %>
-              <!-- </li>
-            </ul> -->
-          </div><!-- /.navbar-collapse -->
-        <!-- </div>/.container-fluid -->
+          <% if (authenticated) { %>
+            <a href="/userpage/<%= user_id %>"><span class="fontawesome-user"></span></a>
+            <span class="fontawesome-signout"></span>
+          <% } else { %>
+            <span class="fontawesome-signin" data-toggle="modal" data-target="#signin-modal"></span>
+          <% } %>
+        </div><!-- /.navbar-collapse -->
       </nav>
     </header>
       <div id="contentdiv">
